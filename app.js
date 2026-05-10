@@ -240,6 +240,7 @@ function renderAll() {
 function renderHeader() {
   document.getElementById('header-name').textContent = state.hunterName;
   document.getElementById('streak-count').textContent = state.streak;
+  document.getElementById('gold-count').textContent = state.gold || 0;
 }
 
 function renderDashboard() {
@@ -289,23 +290,57 @@ function renderQuestTab() {
   document.getElementById('quest-rank-tag').textContent = `RANK ${rank.label}`;
   document.getElementById('quest-xp-reward').textContent = `+${rank.questXP} XP`;
 
+  // Streak banner — always show
+  document.getElementById('streak-banner').classList.remove('hidden');
+
+  const currentFilter = window._questFilter || 'all';
+  const allExercises = quest.exercises;
+  const doneCount = state.questChecks.length;
+  const activeCount = allExercises.length - doneCount;
+
+  document.getElementById('filter-count-all').textContent = allExercises.length;
+  document.getElementById('filter-count-active').textContent = activeCount;
+  document.getElementById('filter-count-done').textContent = doneCount;
+
   const box = document.getElementById('quest-box');
-  box.innerHTML = quest.exercises.map((ex, i) => {
+  box.innerHTML = allExercises.map((ex, i) => {
     const done = state.questChecks.includes(i);
+    if (currentFilter === 'active' && done) return '';
+    if (currentFilter === 'done' && !done) return '';
+
+    const isTimed = ex.target.toLowerCase().includes('sec') || ex.target.toLowerCase().includes('min');
+    const timerSecs = parseTimerSeconds(ex.target);
+
     return `
-      <div class="quest-exercise ${done ? 'done' : ''}" data-idx="${i}" onclick="toggleQuestCheck(${i})">
-        <div class="qe-left">
-          <div class="qe-check">${done ? '✓' : ''}</div>
-          <div class="qe-name">${ex.name}</div>
+      <div class="quest-card ${done ? 'done' : ''}">
+        <div class="quest-card-top">
+          <div class="quest-card-left">
+            <div class="quest-card-rank">[${rank.label}-RANK] <span>DAILY</span></div>
+            <div class="quest-card-name">${ex.name}</div>
+            <div class="quest-card-desc">${ex.target}</div>
+          </div>
+          <div class="quest-card-progress-label">${state.questChecks.filter(x => x === i).length > 0 ? '✓' : '0 / ' + extractTarget(ex.target)}</div>
         </div>
-        <div class="qe-target">${ex.target}</div>
+        <div class="quest-card-bottom">
+          <div class="quest-card-rewards">
+            <span class="qc-xp">EXP +${Math.floor(rank.questXP / allExercises.length)}</span>
+            <span class="qc-gold">GOLD +${Math.floor((rank.questXP / allExercises.length) * 0.4)}</span>
+          </div>
+          <div class="quest-card-btns">
+            ${done
+              ? `<span class="quest-card-done-tag">✓ DONE</span>`
+              : `${isTimed ? `<button class="qc-btn timer-btn-card" onclick="openTimer('${ex.name}', ${timerSecs})">⏱ TIMER</button>` : ''}
+                 <button class="qc-btn" onclick="incrementQuest(${i})">+1</button>
+                 <button class="qc-btn check" onclick="toggleQuestCheck(${i})">✓</button>`
+            }
+          </div>
+        </div>
       </div>
     `;
   }).join('');
 
   const btn = document.getElementById('complete-quest-btn');
   const msg = document.getElementById('quest-complete-msg');
-
   if (state.questCompletedToday) {
     btn.disabled = true;
     msg.classList.remove('hidden');
@@ -313,6 +348,19 @@ function renderQuestTab() {
     btn.disabled = false;
     msg.classList.add('hidden');
   }
+}
+
+function extractTarget(targetStr) {
+  const match = targetStr.match(/(\d+)\s*(reps|km|min|sec|laps|total)/i);
+  return match ? match[1] : '?';
+}
+
+function parseTimerSeconds(targetStr) {
+  const secMatch = targetStr.match(/(\d+)\s*sec/i);
+  if (secMatch) return parseInt(secMatch[1]);
+  const minMatch = targetStr.match(/(\d+)\s*min/i);
+  if (minMatch) return parseInt(minMatch[1]) * 60;
+  return 60;
 }
 
 function renderProfile() {
@@ -444,8 +492,10 @@ document.getElementById('complete-quest-btn').addEventListener('click', () => {
   state.stats.endurance   = Math.min(100, state.stats.endurance + 2);
   state.stats.discipline  = Math.min(100, state.stats.discipline + 3);
 
-  addXP(xpEarned, true);
-  addActivity(quest.name, xpEarned);
+addXP(xpEarned, true);
+const goldEarned = Math.floor(xpEarned * 0.5);
+state.gold = (state.gold || 0) + goldEarned;  // ADD THIS LINE
+addActivity(quest.name, xpEarned);
 
   checkAchievements();
   saveState();
@@ -641,3 +691,132 @@ document.getElementById('reset-btn').addEventListener('click', () => {
 document.getElementById('rankup-overlay').addEventListener('click', () => {
   document.getElementById('rankup-overlay').classList.add('hidden');
 });
+
+// ===========================
+// QUEST FILTER
+// ===========================
+
+window._questFilter = 'all';
+
+function setQuestFilter(filter) {
+  window._questFilter = filter;
+  document.querySelectorAll('.qf-tab').forEach(t => {
+    t.classList.toggle('active', t.dataset.filter === filter);
+  });
+  renderQuestTab();
+}
+
+// ===========================
+// TIMER
+// ===========================
+
+let _timerInterval = null;
+let _timerRemaining = 0;
+let _timerTotal = 0;
+
+function openTimer(name, seconds) {
+  _timerRemaining = seconds;
+  _timerTotal = seconds;
+  clearInterval(_timerInterval);
+  _timerInterval = null;
+
+  document.getElementById('timer-ex-name').textContent = name.toUpperCase();
+  document.getElementById('timer-countdown').textContent = seconds;
+  document.getElementById('timer-target-label').textContent = `Target: ${seconds >= 60 ? (seconds/60) + ' min' : seconds + ' sec'}`;
+  document.getElementById('timer-start-btn').textContent = 'START';
+
+  const circle = document.getElementById('timer-svg-circle');
+  circle.style.strokeDashoffset = '0';
+
+  document.getElementById('timer-modal').classList.remove('hidden');
+}
+
+function timerStart() {
+  if (_timerInterval) {
+    clearInterval(_timerInterval);
+    _timerInterval = null;
+    document.getElementById('timer-start-btn').textContent = 'RESUME';
+    return;
+  }
+
+  document.getElementById('timer-start-btn').textContent = 'PAUSE';
+  const circumference = 327;
+  const circle = document.getElementById('timer-svg-circle');
+
+  _timerInterval = setInterval(() => {
+    _timerRemaining--;
+    document.getElementById('timer-countdown').textContent = _timerRemaining;
+    const offset = circumference * (1 - _timerRemaining / _timerTotal);
+    circle.style.strokeDashoffset = offset;
+
+    if (_timerRemaining <= 0) {
+      clearInterval(_timerInterval);
+      _timerInterval = null;
+      document.getElementById('timer-modal').classList.add('hidden');
+      showToast('⏱ Timer complete! Mark exercise done.');
+    }
+  }, 1000);
+}
+
+function timerCancel() {
+  clearInterval(_timerInterval);
+  _timerInterval = null;
+  document.getElementById('timer-modal').classList.add('hidden');
+}
+
+function incrementQuest(idx) {
+  // Visual feedback only — full check still requires the ✓ button
+  showToast('+1 rep logged');
+}
+
+// ===========================
+// BOSS BATTLE
+// ===========================
+
+let bossState = { hp: 100, max: 100, defeated: false };
+
+function bossStrike(isHeavy) {
+  if (bossState.defeated) return;
+
+  if (isHeavy) {
+    if ((state.gold || 0) < 50) {
+      showToast('Not enough gold for heavy strike!');
+      return;
+    }
+    state.gold = (state.gold || 0) - 50;
+    bossState.hp = Math.max(0, bossState.hp - 30);
+  } else {
+    bossState.hp = Math.max(0, bossState.hp - 10);
+  }
+
+  const pct = (bossState.hp / bossState.max) * 100;
+  document.getElementById('boss-hp-bar').style.width = pct + '%';
+  document.getElementById('boss-hp-cur').textContent = bossState.hp;
+  document.getElementById('gold-count').textContent = state.gold || 0;
+
+  if (bossState.hp <= 0) {
+    bossState.defeated = true;
+    document.getElementById('boss-strike-btn').disabled = true;
+    document.getElementById('boss-heavy-btn').disabled = true;
+    document.getElementById('boss-complete-msg').classList.remove('hidden');
+
+    const xpReward = parseInt(document.getElementById('boss-reward-xp').textContent) || 300;
+    const goldReward = parseInt(document.getElementById('boss-reward-gold').textContent) || 150;
+    state.gold = (state.gold || 0) + goldReward;
+    document.getElementById('gold-count').textContent = state.gold;
+    addXP(xpReward);
+    addActivity('⚔️ Boss Defeated!', xpReward);
+    saveState();
+    showToast(`Boss defeated! +${xpReward} XP +${goldReward}G`);
+  }
+
+  saveState();
+}
+
+// ===========================
+// GOLD INIT
+// ===========================
+
+function renderGold() {
+  document.getElementById('gold-count').textContent = state.gold || 0;
+}
