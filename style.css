@@ -229,6 +229,19 @@ header {
   letter-spacing: 0.08em;
 }
 
+.gold-badge {
+  background: var(--panel);
+  border: 1px solid var(--border2);
+  border-radius: 20px;
+  padding: 0.3rem 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--mono);
+  font-size: 0.9rem;
+  color: var(--gold);
+}
+
 .streak-badge {
   background: var(--panel);
   border: 1px solid var(--border2);
@@ -242,9 +255,13 @@ header {
   color: var(--gold);
 }
 
-/* ===========================
-   NAV TABS
-=========================== */
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+
 .tab-nav {
   display: flex;
   border-bottom: 1px solid var(--border);
@@ -514,6 +531,216 @@ header {
 }
 
 /* ===========================
+   STREAK BANNER
+=========================== */
+.streak-banner {
+  background: #7c3aed18;
+  border: 1px solid #7c3aed60;
+  border-left: 3px solid var(--purple-l);
+  border-radius: var(--radius);
+  padding: 0.7rem 0.85rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  margin-bottom: 0.85rem;
+  font-family: var(--body);
+  font-size: 0.9rem;
+  color: var(--text2);
+  line-height: 1.4;
+}
+
+.streak-banner-icon { font-size: 1rem; flex-shrink: 0; margin-top: 1px; }
+
+/* ===========================
+   BOSS BATTLE CARD
+=========================== */
+.boss-card {
+  background: var(--panel);
+  border: 1px solid #ef444440;
+  border-radius: var(--radius);
+  padding: 1.1rem;
+  margin-bottom: 1rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.boss-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #ef444408 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.boss-card-top {
+  display: flex;
+  gap: 0.85rem;
+  align-items: flex-start;
+  margin-bottom: 0.85rem;
+}
+
+.boss-emoji { font-size: 2.5rem; line-height: 1; flex-shrink: 0; }
+
+.boss-name {
+  font-family: var(--head);
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: var(--red);
+  letter-spacing: 0.06em;
+  text-shadow: 0 0 12px #ef444440;
+}
+
+.boss-phase {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  color: var(--text3);
+  letter-spacing: 0.12em;
+  margin: 0.2rem 0;
+}
+
+.boss-desc {
+  font-family: var(--body);
+  font-size: 0.85rem;
+  color: var(--text2);
+}
+
+.boss-hp-wrap { margin-bottom: 0.75rem; }
+
+.boss-hp-label {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  color: var(--red);
+  letter-spacing: 0.08em;
+  margin-bottom: 0.3rem;
+}
+
+.boss-hp-bar-bg {
+  background: var(--border);
+  border-radius: 2px;
+  height: 6px;
+  overflow: hidden;
+  margin-bottom: 0.4rem;
+}
+
+.boss-hp-bar {
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(90deg, var(--red), #f97316);
+  border-radius: 2px;
+  transition: width 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.boss-rewards {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.boss-reward-xp {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  color: var(--cyan);
+  letter-spacing: 0.08em;
+}
+
+.boss-reward-gold {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  color: var(--gold);
+  letter-spacing: 0.08em;
+}
+
+.boss-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.6rem;
+}
+
+.boss-btn {
+  padding: 0.65rem 0.5rem;
+  border-radius: var(--radius);
+  font-family: var(--head);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  border: 1px solid;
+  transition: background 0.2s, box-shadow 0.2s, transform 0.1s;
+}
+
+.boss-btn:active { transform: scale(0.97); }
+
+.boss-btn.strike {
+  background: transparent;
+  border-color: var(--blue);
+  color: var(--blue);
+}
+
+.boss-btn.strike:hover {
+  background: var(--blue);
+  color: #fff;
+  box-shadow: 0 0 12px var(--blue-glow);
+}
+
+.boss-btn.heavy {
+  background: transparent;
+  border-color: var(--gold);
+  color: var(--gold);
+}
+
+.boss-btn.heavy:hover {
+  background: var(--gold);
+  color: #000;
+  box-shadow: 0 0 12px #f59e0b40;
+}
+
+.boss-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.boss-complete-msg {
+  text-align: center;
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  color: var(--gold);
+  letter-spacing: 0.1em;
+  margin-top: 0.75rem;
+  padding: 0.5rem;
+  background: #f59e0b10;
+  border-radius: var(--radius);
+}
+
+/* ===========================
+   QUEST FILTER TABS
+=========================== */
+.quest-filter-tabs {
+  display: flex;
+  gap: 0.4rem;
+  margin-bottom: 0.85rem;
+}
+
+.qf-tab {
+  flex: 1;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text3);
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  padding: 0.5rem 0.25rem;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.qf-tab.active {
+  border-color: var(--blue);
+  color: var(--blue);
+}
+
+/* ===========================
    DAILY QUEST TAB
 =========================== */
 .quest-header {
@@ -525,7 +752,7 @@ header {
 
 .quest-day-label {
   font-family: var(--head);
-  font-size: 1.4rem;
+  font-size: 1.1rem;
   font-weight: 700;
   letter-spacing: 0.08em;
   color: var(--text);
@@ -538,87 +765,150 @@ header {
   letter-spacing: 0.1em;
 }
 
-.quest-rank-badge-wrap {
-  display: flex;
-  gap: 0.75rem;
-  align-items: center;
-  margin-bottom: 1rem;
-}
-
-.quest-rank-tag {
-  background: var(--border);
-  border: 1px solid var(--border2);
-  border-radius: 3px;
-  font-family: var(--mono);
-  font-size: 0.7rem;
-  color: var(--blue);
-  padding: 0.25rem 0.6rem;
-  letter-spacing: 0.1em;
-}
-
-.quest-xp-reward {
-  font-family: var(--mono);
-  font-size: 0.75rem;
-  color: var(--green);
-  letter-spacing: 0.1em;
-}
-
-.quest-box {
+/* ===========================
+   QUEST CARDS (new style)
+=========================== */
+.quest-card {
   background: var(--panel);
   border: 1px solid var(--border2);
   border-radius: var(--radius);
-  overflow: hidden;
+  padding: 1rem 1.1rem;
+  margin-bottom: 0.6rem;
+  transition: border-color 0.2s;
 }
 
-.quest-exercise {
+.quest-card.done {
+  border-color: var(--green);
+  opacity: 0.6;
+}
+
+.quest-card-top {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  padding: 1rem 1.1rem;
-  border-bottom: 1px solid var(--border);
-  cursor: pointer;
-  transition: background 0.15s;
+  align-items: flex-start;
+  margin-bottom: 0.4rem;
 }
 
-.quest-exercise:last-child { border-bottom: none; }
+.quest-card-left {}
 
-.quest-exercise:hover { background: #ffffff05; }
-
-.quest-exercise.done { opacity: 0.45; }
-
-.qe-left { display: flex; align-items: center; gap: 0.75rem; }
-
-.qe-check {
-  width: 18px;
-  height: 18px;
-  border: 1.5px solid var(--border2);
-  border-radius: 3px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.7rem;
-  color: var(--green);
-  flex-shrink: 0;
-  transition: border-color 0.2s, background 0.2s;
+.quest-card-rank {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  color: var(--blue);
+  letter-spacing: 0.12em;
+  margin-bottom: 0.25rem;
 }
 
-.quest-exercise.done .qe-check {
-  background: var(--green);
-  border-color: var(--green);
-  color: #000;
+.quest-card-rank span {
+  color: var(--text3);
+  margin-left: 0.5rem;
 }
 
-.qe-name {
-  font-family: var(--body);
-  font-size: 1rem;
-  font-weight: 500;
+.quest-card-name {
+  font-family: var(--head);
+  font-size: 1.05rem;
+  font-weight: 700;
   color: var(--text);
 }
 
-.qe-target {
+.quest-card-desc {
+  font-family: var(--body);
+  font-size: 0.85rem;
+  color: var(--text2);
+  margin-top: 0.15rem;
+}
+
+.quest-card-progress-label {
   font-family: var(--mono);
   font-size: 0.75rem;
+  color: var(--text3);
+  white-space: nowrap;
+  margin-left: 0.5rem;
+  flex-shrink: 0;
+}
+
+.quest-card-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 0.75rem;
+}
+
+.quest-card-rewards {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.qc-xp {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  color: var(--cyan);
+  letter-spacing: 0.08em;
+}
+
+.qc-gold {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  color: var(--gold);
+  letter-spacing: 0.08em;
+}
+
+.quest-card-btns {
+  display: flex;
+  gap: 0.4rem;
+  align-items: center;
+}
+
+.qc-btn {
+  width: 36px;
+  height: 32px;
+  background: var(--bg3);
+  border: 1px solid var(--border2);
+  border-radius: 4px;
   color: var(--text2);
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+
+.qc-btn:hover {
+  border-color: var(--blue);
+  color: var(--blue);
+}
+
+.qc-btn.check {
+  width: 32px;
+  background: var(--bg3);
+  border-color: var(--green);
+  color: var(--green);
+  font-size: 0.9rem;
+}
+
+.qc-btn.check:hover {
+  background: var(--green);
+  color: #000;
+}
+
+.qc-btn.timer-btn-card {
+  width: auto;
+  padding: 0 0.6rem;
+  border-color: var(--purple-l);
+  color: var(--purple-l);
+  font-size: 0.65rem;
+  letter-spacing: 0.06em;
+}
+
+.qc-btn.timer-btn-card:hover {
+  background: var(--purple-l);
+  color: #fff;
+}
+
+.quest-card-done-tag {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  color: var(--green);
+  letter-spacing: 0.1em;
 }
 
 .quest-penalty-note {
@@ -674,6 +964,123 @@ header {
   background: #22c55e10;
   border-radius: var(--radius);
 }
+
+/* ===========================
+   TIMER MODAL
+=========================== */
+#timer-modal {
+  position: fixed;
+  inset: 0;
+  background: #000000d0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 8500;
+  animation: fadeIn 0.2s ease;
+}
+
+.timer-modal-content {
+  background: var(--bg2);
+  border: 1px solid var(--border2);
+  border-radius: 12px;
+  padding: 2rem 1.5rem;
+  text-align: center;
+  width: 280px;
+  animation: rankupPop 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.timer-exercise-name {
+  font-family: var(--head);
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--purple-l);
+  margin-bottom: 1.25rem;
+}
+
+.timer-circle {
+  position: relative;
+  width: 140px;
+  height: 140px;
+  margin: 0 auto 0.75rem;
+}
+
+.timer-circle svg {
+  width: 140px;
+  height: 140px;
+  transform: rotate(-90deg);
+}
+
+.timer-track {
+  fill: none;
+  stroke: var(--border);
+  stroke-width: 6;
+}
+
+.timer-progress {
+  fill: none;
+  stroke: var(--purple-l);
+  stroke-width: 6;
+  stroke-linecap: round;
+  stroke-dasharray: 327;
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 1s linear, stroke 0.3s;
+  filter: drop-shadow(0 0 6px #a855f780);
+}
+
+.timer-countdown {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--head);
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--text);
+}
+
+.timer-target-label {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  color: var(--text3);
+  letter-spacing: 0.1em;
+  margin-bottom: 1.25rem;
+}
+
+.timer-controls {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.6rem;
+}
+
+.timer-btn {
+  padding: 0.65rem;
+  border-radius: var(--radius);
+  font-family: var(--head);
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  border: 1px solid;
+  transition: background 0.2s, color 0.2s;
+}
+
+.timer-btn.start {
+  background: var(--purple);
+  border-color: var(--purple-l);
+  color: #fff;
+}
+
+.timer-btn.start:hover { background: var(--purple-l); }
+
+.timer-btn.cancel {
+  background: transparent;
+  border-color: var(--border2);
+  color: var(--text3);
+}
+
+.timer-btn.cancel:hover { border-color: var(--red); color: var(--red); }
 
 /* ===========================
    WORKOUT LOG

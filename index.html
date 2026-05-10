@@ -41,6 +41,10 @@
         <span class="hunter-display" id="header-name">HUNTER</span>
       </div>
       <div class="header-right">
+        <div class="gold-badge">
+          <span>💰</span>
+          <span id="gold-count">0</span>G
+        </div>
         <div class="streak-badge">
           <span class="streak-icon">🔥</span>
           <span id="streak-count">0</span>
@@ -122,27 +126,60 @@
     <!-- ===================== DAILY QUEST TAB ===================== -->
     <section id="tab-quests" class="tab-content hidden">
 
+      <!-- Streak Warning Banner -->
+      <div class="streak-banner hidden" id="streak-banner">
+        <span class="streak-banner-icon">⚡</span>
+        <span id="streak-banner-text">[DAILY QUEST] Complete all quests before midnight to maintain your streak!</span>
+      </div>
+
+      <!-- Boss Battle Card -->
+      <div class="boss-card" id="boss-card">
+        <div class="boss-card-top">
+          <div class="boss-emoji" id="boss-emoji">👹</div>
+          <div class="boss-info">
+            <div class="boss-name" id="boss-name">IRON GOLEM</div>
+            <div class="boss-phase" id="boss-phase">PHASE 1: Awakening</div>
+            <div class="boss-desc" id="boss-desc">A dungeon guardian blocks your path.</div>
+          </div>
+        </div>
+        <div class="boss-hp-wrap">
+          <div class="boss-hp-label">HP: <span id="boss-hp-cur">100</span>/<span id="boss-hp-max">100</span></div>
+          <div class="boss-hp-bar-bg"><div class="boss-hp-bar" id="boss-hp-bar"></div></div>
+          <div class="boss-rewards">
+            <span class="boss-reward-xp" id="boss-reward-xp">+300 XP</span>
+            <span class="boss-reward-gold" id="boss-reward-gold">+150G</span>
+          </div>
+        </div>
+        <div class="boss-actions">
+          <button class="boss-btn strike" id="boss-strike-btn" onclick="bossStrike(false)">⚡ STRIKE (-10)</button>
+          <button class="boss-btn heavy" id="boss-heavy-btn" onclick="bossStrike(true)">💥 HEAVY (-30) [50G]</button>
+        </div>
+        <div class="boss-complete-msg hidden" id="boss-complete-msg">⚔️ BOSS DEFEATED — REWARDS CLAIMED</div>
+      </div>
+
+      <!-- Quest Date + Header -->
       <div class="quest-header">
-        <div class="quest-day-label">DAILY QUEST</div>
+        <div class="quest-day-label">DAILY PROTOCOL</div>
         <div class="quest-date" id="quest-date"></div>
       </div>
 
-      <div class="quest-rank-badge-wrap">
-        <span class="quest-rank-tag" id="quest-rank-tag">RANK F</span>
-        <span class="quest-xp-reward" id="quest-xp-reward">+150 XP</span>
+      <!-- Filter Tabs -->
+      <div class="quest-filter-tabs">
+        <button class="qf-tab active" data-filter="all" onclick="setQuestFilter('all')">All (<span id="filter-count-all">0</span>)</button>
+        <button class="qf-tab" data-filter="active" onclick="setQuestFilter('active')">Active (<span id="filter-count-active">0</span>)</button>
+        <button class="qf-tab" data-filter="done" onclick="setQuestFilter('done')">Done (<span id="filter-count-done">0</span>)</button>
       </div>
 
-      <div class="quest-box" id="quest-box">
-        <!-- dynamically filled -->
-      </div>
+      <!-- Quest Cards -->
+      <div id="quest-box"></div>
 
       <div class="quest-penalty-note">
         ⚠ Failure to complete will result in <strong>-50 XP</strong> penalty.
       </div>
 
-      <button class="complete-quest-btn" id="complete-quest-btn">COMPLETE QUEST</button>
+      <button class="complete-quest-btn" id="complete-quest-btn">COMPLETE ALL QUESTS</button>
       <div class="quest-complete-msg hidden" id="quest-complete-msg">
-        ✅ QUEST COMPLETE — XP AWARDED
+        ✅ QUEST COMPLETE — XP &amp; GOLD AWARDED
       </div>
 
     </section>
@@ -251,6 +288,25 @@
 
     </section>
 
+  </div>
+
+  <!-- TIMER MODAL -->
+  <div id="timer-modal" class="hidden">
+    <div class="timer-modal-content">
+      <div class="timer-exercise-name" id="timer-ex-name">PLANK</div>
+      <div class="timer-circle">
+        <svg viewBox="0 0 120 120">
+          <circle class="timer-track" cx="60" cy="60" r="52"/>
+          <circle class="timer-progress" id="timer-svg-circle" cx="60" cy="60" r="52"/>
+        </svg>
+        <div class="timer-countdown" id="timer-countdown">60</div>
+      </div>
+      <div class="timer-target-label" id="timer-target-label">Target: 60 sec</div>
+      <div class="timer-controls">
+        <button class="timer-btn start" id="timer-start-btn" onclick="timerStart()">START</button>
+        <button class="timer-btn cancel" onclick="timerCancel()">CANCEL</button>
+      </div>
+    </div>
   </div>
 
   <!-- RANK UP OVERLAY -->
