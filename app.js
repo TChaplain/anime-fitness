@@ -370,6 +370,671 @@ const CHARACTER_QUESTS = {
   ],
 };
 
+const DUNGEON_RAIDS = {
+  jinwoo: [
+    {
+      id: 'double_dungeon', rank: 'E', rankIndex: 1,
+      name: "The Double Dungeon",
+      desc: "A hidden dungeon beneath a D-rank gate. Statues that move. Commandments carved in stone. Survive the System's first test.",
+      missions: [
+        { name: 'Stone Guardian Sprint', desc: 'Run before the statues catch you', target: '3 km run' },
+        { name: 'Commandment Push-ups', desc: 'One for each rule on the wall', target: '30 total reps' },
+        { name: 'Arise Sit-ups', desc: 'Rise from the ground like a shadow', target: '30 total reps' },
+      ],
+      xpReward: 300, goldReward: 150,
+    },
+    {
+      id: 'red_gate', rank: 'D', rankIndex: 2,
+      name: "Red Gate — Ice Bear's Den",
+      desc: "A gate that seals on entry. Frozen wasteland. Ice Bears and Ice Elves block every path. No exit until the dungeon is cleared.",
+      missions: [
+        { name: 'Frozen Tundra Run', desc: 'Cover ground before the cold sets in', target: '5 km run' },
+        { name: 'Ice Bear Takedowns', desc: 'Drop them before they drop you', target: '4 × 12 reps' },
+        { name: 'Blizzard Plank', desc: 'Hold position in the storm', target: '3 × 60 sec' },
+        { name: 'Shadow Extraction Pull-ups', desc: 'Rise up and claim your shadows', target: '3 × 10 reps' },
+      ],
+      xpReward: 600, goldReward: 300,
+    },
+    {
+      id: 'instance_dungeon', rank: 'B', rankIndex: 4,
+      name: "System Instance Dungeon",
+      desc: "A dungeon only Jinwoo can see. Unique to the Player. The System has generated a trial specifically for your current level.",
+      missions: [
+        { name: 'Penalty Quest Push-ups', desc: 'The System demands 100', target: '100 total reps' },
+        { name: 'Penalty Quest Sit-ups', desc: 'No mercy from the System', target: '100 total reps' },
+        { name: 'Penalty Quest Squats', desc: 'Complete or face punishment', target: '100 total reps' },
+        { name: 'System Run', desc: 'The original quest. Still applies.', target: '10 km run' },
+      ],
+      xpReward: 1200, goldReward: 600,
+    },
+    {
+      id: 'monarchs_domain', rank: 'S', rankIndex: 6,
+      name: "Domain of the Shadow Monarch",
+      desc: "The throne room of Ashborn. An army of shadows waits. This is where the second Shadow Monarch proves his worth.",
+      missions: [
+        { name: 'Shadow Army Deployment', desc: 'Raise your soldiers from the ground', target: '5 × 20 reps' },
+        { name: 'Monarch Deadlift', desc: 'Carry the weight of a kingdom', target: '5 × 8 reps' },
+        { name: 'Sovereign Sprint', desc: 'Cross the shadow realm', target: '8 km run' },
+        { name: 'Arise Conditioning', desc: 'The final trial of the monarch', target: '4 × 15 reps' },
+        { name: 'Endurance Hold', desc: 'Stand as a ruler stands — unbroken', target: '3 × 120 sec' },
+      ],
+      xpReward: 2500, goldReward: 1250,
+    },
+  ],
+
+  yuji: [
+    {
+      id: 'juvenile_detention', rank: 'E', rankIndex: 1,
+      name: "Juvenile Detention — Curse Breakout",
+      desc: "A curse has overrun a detention facility. Finger Bearers are loose. Clean it out before civilian casualties mount.",
+      missions: [
+        { name: 'Corridor Sprints', desc: 'Clear every hallway fast', target: '3 × 200m' },
+        { name: 'Curse Takedown Burpees', desc: 'Drop the curses one by one', target: '3 × 15 reps' },
+        { name: 'Restraint Holds', desc: 'Pin them down with raw strength', target: '3 × 45 sec' },
+      ],
+      xpReward: 300, goldReward: 150,
+    },
+    {
+      id: 'tokyo_high', rank: 'D', rankIndex: 2,
+      name: "Tokyo Jujutsu High — Training Grounds",
+      desc: "Gojo has locked you in the school training grounds. Semi-grade curses incoming. Survive and you graduate to the next level.",
+      missions: [
+        { name: 'Cursed Energy Squats', desc: 'Build the explosive legs Yuji is known for', target: '4 × 20 reps' },
+        { name: 'Black Flash Conditioning', desc: 'Rate of force development — maximum intent', target: '3 × 12 reps' },
+        { name: 'Divergent Fist Combos', desc: 'Shadow boxing, full power', target: '3 × 60 sec' },
+        { name: 'Campus Run', desc: 'Lap the school grounds', target: '5 km run' },
+      ],
+      xpReward: 600, goldReward: 300,
+    },
+    {
+      id: 'mahito_domain', rank: 'B', rankIndex: 4,
+      name: "Mahito's Domain — Idle Transfiguration",
+      desc: "You've been pulled into Mahito's innate domain. The walls reshape. Your body is the only thing that's yours. Fight your way out.",
+      missions: [
+        { name: 'Soul Reinforcement Push-ups', desc: 'Harden your soul through reps', target: '5 × 20 reps' },
+        { name: 'Transfiguration Evasion Run', desc: 'Keep moving or get reshaped', target: '6 km run' },
+        { name: 'Full Cowl Squats', desc: 'Channel Sukuna\'s power into your legs', target: '4 × 15 reps' },
+        { name: 'Idle Form Holds', desc: 'Resist the transfiguration', target: '4 × 60 sec' },
+      ],
+      xpReward: 1200, goldReward: 600,
+    },
+    {
+      id: 'shibuya_incident', rank: 'S', rankIndex: 6,
+      name: "Shibuya Incident — Halloween Night",
+      desc: "Thousands of civilians. Dozens of curses. No Gojo. Shibuya station is a warzone and you're the only one who can hit them.",
+      missions: [
+        { name: 'Station Assault Sprint', desc: 'Get through the crowds to the target', target: '8 km run' },
+        { name: 'Black Flash Burpees', desc: 'Maximum power output, every rep', target: '5 × 15 reps' },
+        { name: 'Disaster Curse Rows', desc: 'Pull them down before they escape', target: '5 × 12 reps' },
+        { name: 'Sukuna Channel Holds', desc: 'Let the King\'s power flow — controlled', target: '3 × 90 sec' },
+        { name: 'Final Stand Squats', desc: 'Legs that refuse to give out', target: '4 × 20 reps' },
+      ],
+      xpReward: 2500, goldReward: 1250,
+    },
+  ],
+
+  goku: [
+    {
+      id: 'king_kai_planet', rank: 'E', rankIndex: 1,
+      name: "King Kai's Planet",
+      desc: "Ten times Earth's gravity. A tiny planet at the end of Snake Way. This is where Goku first learned the Kaio-ken. Your turn.",
+      missions: [
+        { name: 'Gravity Push-ups', desc: 'Every rep under 10x gravity', target: '4 × 15 reps' },
+        { name: 'Snake Way Sprint', desc: 'The road that never ends', target: '5 km run' },
+        { name: 'Chiaotzu Carry Squats', desc: 'Carry the load', target: '3 × 20 reps' },
+      ],
+      xpReward: 300, goldReward: 150,
+    },
+    {
+      id: 'planet_namek', rank: 'D', rankIndex: 2,
+      name: "Planet Namek — Frieza's Assault",
+      desc: "A dying planet with its own gravity. Frieza's forces everywhere. Fight through to reach the Dragon Balls before time runs out.",
+      missions: [
+        { name: 'Namekian Gravity Run', desc: 'Namek gravity — slightly higher than Earth', target: '6 km run' },
+        { name: 'Frieza Force Push-ups', desc: 'Clear the soldiers', target: '4 × 20 reps' },
+        { name: 'Kaioken Squats', desc: 'Double your output', target: '4 × 15 reps' },
+        { name: 'Zenkai Sit-ups', desc: 'Get stronger from the beating', target: '4 × 20 reps' },
+      ],
+      xpReward: 600, goldReward: 300,
+    },
+    {
+      id: 'hyperbolic_time_chamber', rank: 'B', rankIndex: 4,
+      name: "Hyperbolic Time Chamber",
+      desc: "One year inside. One day outside. 10x gravity. Thin air. Extreme temperatures. Goku and Gohan broke their limits here. Now it's yours.",
+      missions: [
+        { name: 'Super Saiyan Threshold Push-ups', desc: 'Push until transformation', target: '100 total reps' },
+        { name: 'Gravity Chamber Deadlift', desc: 'Heavy compound under pressure', target: '4 × 8 reps' },
+        { name: 'Endless Time Plank', desc: 'Time moves differently in here', target: '3 × 120 sec' },
+        { name: 'Compressed Year Run', desc: 'A year\'s endurance in one session', target: '8 km run' },
+      ],
+      xpReward: 1200, goldReward: 600,
+    },
+    {
+      id: 'tournament_of_power', rank: 'S', rankIndex: 6,
+      name: "Tournament of Power — World's End Arena",
+      desc: "No ring-outs forgiven here. 80 warriors. Universe survival on the line. Goku went Ultra Instinct in this arena. What will you unlock?",
+      missions: [
+        { name: 'Universal Pressure Squats', desc: 'The weight of a universe', target: '5 × 15 reps' },
+        { name: 'Ultra Instinct Sprint', desc: 'React before you think', target: '10 km run' },
+        { name: 'Spirit Bomb Overhead Press', desc: 'Gather energy from everything', target: '5 × 10 reps' },
+        { name: 'Saiyan Beyond God Pull-ups', desc: 'Beyond your limits', target: '5 × 10 reps' },
+        { name: 'Final Form Hold', desc: 'Hold the transformation', target: '3 × 90 sec' },
+      ],
+      xpReward: 2500, goldReward: 1250,
+    },
+  ],
+
+  baki: [
+    {
+      id: 'underground_arena', rank: 'E', rankIndex: 1,
+      name: "Tokyo Underground Arena — First Blood",
+      desc: "Below the Tokyo Dome. No rules. No weight classes. Fighters from across the world came here to test themselves. So did Baki at 13.",
+      missions: [
+        { name: 'Arena Entry Push-ups', dest: 'Earn your spot', target: '5 × 20 reps' },
+        { name: 'Underground Sit-ups', desc: 'Core is everything in the pit', target: '50 total reps' },
+        { name: 'Grappler Squats', desc: 'Low stance, explosive hips', target: '3 × 20 reps' },
+      ],
+      xpReward: 300, goldReward: 150,
+    },
+    {
+      id: 'death_row_challenge', rank: 'D', rankIndex: 2,
+      name: "Death Row Convict Gauntlet",
+      desc: "Five death row convicts escaped prisons worldwide to fight the strongest. Baki fought them all. One by one, they come for you.",
+      missions: [
+        { name: 'Convict Conditioning Pull-ups', desc: 'Prison strength — no equipment needed', target: '5 × 10 reps' },
+        { name: 'Gauntlet Burpees', desc: 'Five opponents, five sets', target: '5 × 15 reps' },
+        { name: 'Iron Neck Bridges', desc: 'The neck of a fighter, not a gym rat', target: '3 × 30 sec' },
+        { name: 'Full Throttle Run', desc: 'Chase them down', target: '5 km run' },
+      ],
+      xpReward: 600, goldReward: 300,
+    },
+    {
+      id: 'pickle_fight', rank: 'B', rankIndex: 4,
+      name: "Museum of Natural History — The Pickle Fight",
+      desc: "A prehistoric man thawed from the ice. Pure instinct. No technique. Just millions of years of evolution and muscle memory. Good luck.",
+      missions: [
+        { name: 'Prehistoric Power Deadlifts', desc: 'Raw pulling strength', target: '4 × 8 reps' },
+        { name: 'Primal Push-ups', desc: 'No finesse, just force', target: '100 total reps' },
+        { name: 'Demon Back Rows', desc: 'Build the back that scares people', target: '5 × 12 reps' },
+        { name: 'Survival Conditioning', desc: 'Outlast the prehistoric man', target: '3 × 90 sec' },
+      ],
+      xpReward: 1200, goldReward: 600,
+    },
+    {
+      id: 'yujiro_final', rank: 'S', rankIndex: 6,
+      name: "Raitai Tournament — Father's Domain",
+      desc: "The Ogre. The strongest creature on Earth. Yujiro Hanma is waiting. Every fight you've had was preparation for this moment.",
+      missions: [
+        { name: 'Ogre Conditioning Push-ups', desc: 'Match the Ogre\'s volume', target: '5 × 25 reps' },
+        { name: 'Demon Back Deadlift', desc: 'Forge the back that looks like a demon', target: '5 × 6 reps' },
+        { name: 'X-Frame Shred Run', desc: 'Burn the fat off the frame', target: '10 km run' },
+        { name: 'Underground Champion Pull-ups', desc: 'The champion\'s pull', target: '5 × 12 reps' },
+        { name: 'Hanma Core Plank', desc: 'The core of the Hanma bloodline', target: '3 × 120 sec' },
+      ],
+      xpReward: 2500, goldReward: 1250,
+    },
+  ],
+
+  toji: [
+    {
+      id: 'tombs_corridor', rank: 'E', rankIndex: 1,
+      name: "Tombs of the Star Corridor",
+      desc: "The assassination contract that made Toji infamous. One target, impossible odds. He did it with zero cursed energy and a chain.",
+      missions: [
+        { name: 'Assassin Sprint', desc: 'Get in, get out', target: '3 × 200m' },
+        { name: 'Sorcerer Killer Pull-ups', desc: 'The pull that defines the V-taper', target: '4 × 10 reps' },
+        { name: 'Contract Plank', desc: 'Still as a shadow', target: '3 × 60 sec' },
+      ],
+      xpReward: 300, goldReward: 150,
+    },
+    {
+      id: 'gojo_young_fight', rank: 'D', rankIndex: 2,
+      name: "Hidden Inventory Arc — Young Gojo's Limit",
+      desc: "The only man to ever push Gojo Satoru to his absolute limit. No cursed energy. Just the body as weapon. The world watched.",
+      missions: [
+        { name: 'Heavenly Restriction Rows', desc: 'Your back without any cursed energy', target: '5 × 12 reps' },
+        { name: 'Sorcerer Speed Intervals', desc: 'Faster than cursed techniques', target: '6 × 100m' },
+        { name: 'Iron Body Push-ups', desc: 'No magic, just steel', target: '4 × 20 reps' },
+        { name: 'Toji Lateral Raises', desc: 'Build the width that creates the V', target: '4 × 15 reps' },
+      ],
+      xpReward: 600, goldReward: 300,
+    },
+    {
+      id: 'zenin_warehouse', rank: 'B', rankIndex: 4,
+      name: "Zenin Clan Cursed Warehouse",
+      desc: "A warehouse full of special grade cursed tools. Toji's natural habitat. He could use any of them — and he doesn't need cursed energy to do it.",
+      missions: [
+        { name: 'Weapon Master Dips', desc: 'Upper body built to wield anything', target: '4 × 15 reps' },
+        { name: 'Cursed Tool Deadlift', desc: 'Carry the heavy weapons', target: '4 × 8 reps' },
+        { name: 'Warehouse Sprint', desc: 'Navigate the space at full speed', target: '5 km run' },
+        { name: 'V-Taper Overhead Press', desc: 'Shoulders that create the silhouette', target: '4 × 12 reps' },
+      ],
+      xpReward: 1200, goldReward: 600,
+    },
+    {
+      id: 'reincarnation_battle', rank: 'S', rankIndex: 6,
+      name: "Reincarnation — Toji Returns",
+      desc: "A sorcerer's curse brought Toji back from the dead with 100% of his power. No mission. No contract. Just pure instinct and muscle memory.",
+      missions: [
+        { name: 'Reincarnation Pull-ups', desc: 'The body remembers everything', target: '5 × 12 reps' },
+        { name: 'Instinct Sprints', desc: 'Move without thinking', target: '8 × 100m' },
+        { name: 'Pure Physique Push-ups', desc: 'No technique. Just the body.', target: '100 total reps' },
+        { name: 'Zero Cursed Energy Shred', desc: 'Cut to reveal the V-taper', target: '3 × 120 sec' },
+        { name: 'Sorcerer Killer Final Form', desc: 'The completed physique of the Sorcerer Killer', target: '5 × 15 reps' },
+      ],
+      xpReward: 2500, goldReward: 1250,
+    },
+  ],
+
+  asta: [
+    {
+      id: 'dungeon_exploration', rank: 'E', rankIndex: 1,
+      name: "Clover Kingdom Dungeon — First Dive",
+      desc: "Magic Knights dive into dungeons for treasure and intel. Asta went in with no mana and came out stronger. Your first gate awaits.",
+      missions: [
+        { name: 'Dungeon Entry Push-ups', desc: 'No magic, just muscle', target: '5 × 20 reps' },
+        { name: 'Black Clover Sprint', desc: 'Run the dungeon corridors', target: '3 km run' },
+        { name: 'Grimoire Sit-ups', desc: 'Core of a Black Bull', target: '50 total reps' },
+      ],
+      xpReward: 300, goldReward: 150,
+    },
+    {
+      id: 'underwater_temple', rank: 'D', rankIndex: 2,
+      name: "Underwater Temple of the Sea God",
+      desc: "Deep beneath the ocean. A gambler priest and his disciples guard the mana stone. Asta swam down with no mana and fought his way through.",
+      missions: [
+        { name: 'Deep Water Pull-ups', desc: 'Resistance in every direction', target: '4 × 10 reps' },
+        { name: 'Temple Guardian Squats', desc: 'Heavy compound against the disciples', target: '4 × 20 reps' },
+        { name: 'Sea God Carries', desc: 'Farmer carries through the deep', target: '3 × 40 meters' },
+        { name: 'Anti-Magic Conditioning', desc: 'Hold position in the deep', target: '3 × 60 sec' },
+      ],
+      xpReward: 600, goldReward: 300,
+    },
+    {
+      id: 'spade_fortress', rank: 'B', rankIndex: 4,
+      name: "Spade Kingdom Fortress Assault",
+      desc: "The Dark Triad's fortress. Devils on every level. Asta went in to rescue Yami. Anti-magic against devil power — the only weapon that works.",
+      missions: [
+        { name: 'Fortress Breach Burpees', desc: 'Storm every floor', target: '5 × 15 reps' },
+        { name: 'Devil Slayer Pull-ups', desc: 'Anti-magic requires a strong back', target: '5 × 10 reps' },
+        { name: 'Black Bull Charge Run', desc: 'Charge the fortress', target: '6 km run' },
+        { name: 'Liebe Union Push-ups', desc: 'Devil Union — double the output', target: '5 × 20 reps' },
+      ],
+      xpReward: 1200, goldReward: 600,
+    },
+    {
+      id: 'qliphoth_underworld', rank: 'S', rankIndex: 6,
+      name: "Tree of Qliphoth — Devil's Underworld",
+      desc: "The underworld has opened. Seven levels of devils pouring into the world. Lucifero at the bottom. The boy from the peasant village stands against the king of devils.",
+      missions: [
+        { name: 'Qliphoth Descent Push-ups', desc: 'Deeper with every set', target: '100 total reps' },
+        { name: 'Devil King Deadlift', desc: 'Lift against gravity itself', target: '5 × 8 reps' },
+        { name: 'No Mana Sprint', desc: 'Run what magic cannot', target: '10 km run' },
+        { name: 'Anti-Magic Rows', desc: 'The pulling strength to close a gate', target: '5 × 12 reps' },
+        { name: 'Underworld Plank', desc: 'Stand between worlds', target: '3 × 120 sec' },
+      ],
+      xpReward: 2500, goldReward: 1250,
+    },
+  ],
+
+  saitama: [
+    {
+      id: 'z_city_ghost_town', rank: 'E', rankIndex: 1,
+      name: "Z-City Ghost Town — Mosquito Girl Outbreak",
+      desc: "Genos's first battle. Saitama's first appearance. A Ghost Town overrun with Mosquito Girl's swarm. One punch solved it. Can you even get there?",
+      missions: [
+        { name: 'Ghost Town Jog', desc: 'Saitama\'s daily commute', target: '3 km run' },
+        { name: 'Hero for Fun Push-ups', desc: 'First 33 of the daily hundred', target: '33 total reps' },
+        { name: 'Mosquito Swat Squats', desc: 'Low stance, explosive up', target: '33 total reps' },
+      ],
+      xpReward: 300, goldReward: 150,
+    },
+    {
+      id: 'bang_dojo', rank: 'D', rankIndex: 2,
+      name: "Bang's Dojo — Silver Fang Training",
+      desc: "S-Class rank 3. Bang's Water Stream Rock Smashing Fist dojo sits on a mountain in Z-City. He invited Saitama in. Saitama trained his way.",
+      missions: [
+        { name: 'Dojo Push-ups', desc: 'The OPM basics never change', target: '100 total reps' },
+        { name: 'Mountain Sit-ups', desc: 'A hundred every day', target: '100 total reps' },
+        { name: 'Dojo Squats', desc: 'The third of three exercises', target: '100 total reps' },
+        { name: 'Dojo Run', desc: 'Same run, every day', target: '5 km run' },
+      ],
+      xpReward: 600, goldReward: 300,
+    },
+    {
+      id: 'monster_association_hq', rank: 'B', rankIndex: 4,
+      name: "Monster Association HQ — Underground Raid",
+      desc: "1500 meters underground beneath Z-City Ghost Town. Over 500 monsters. Saitama wandered in looking for the noise. He found Orochi.",
+      missions: [
+        { name: 'Underground Descent Push-ups', desc: 'Level by level', target: '100 total reps' },
+        { name: 'Orochi Chamber Squats', desc: 'The throne room fight', target: '4 × 25 reps' },
+        { name: 'HQ Tunnel Run', desc: 'Navigate the underground', target: '6 km run' },
+        { name: 'Monster Plank Hold', desc: 'Hold your ground', target: '3 × 90 sec' },
+      ],
+      xpReward: 1200, goldReward: 600,
+    },
+    {
+      id: 'boros_ship', rank: 'S', rankIndex: 6,
+      name: "Lord Boros's Ship — Dominator of the Universe",
+      desc: "A conqueror who traveled across the universe searching for a worthy opponent. He leveled A-City just landing. Saitama took the elevator to the roof.",
+      missions: [
+        { name: 'Hero for Fun Final Push-ups', desc: 'The last hundred', target: '100 total reps' },
+        { name: 'Serious Series Squats', desc: 'No holding back', target: '100 total reps' },
+        { name: 'Universal Run', desc: 'Saitama\'s serious run', target: '10 km run' },
+        { name: 'Consecutive Normal Sit-ups', desc: 'A hundred more because why not', target: '100 total reps' },
+        { name: 'Boros Final Stand Plank', desc: 'Hold the line against the universe', target: '3 × 120 sec' },
+      ],
+      xpReward: 2500, goldReward: 1250,
+    },
+  ],
+
+  escanor: [
+    {
+      id: 'castellio_exile', rank: 'E', rankIndex: 1,
+      name: "Kingdom of Castellio — The Exile Begins",
+      desc: "A prince whose power emerged and terrified his own kingdom. Exiled. Wandering. Learning to carry weight that others cannot.",
+      missions: [
+        { name: 'Exile Carry Farmers Walk', desc: 'Carry what no one else can', target: '3 × 40 meters' },
+        { name: 'Sunrise Push-ups', desc: 'Grow stronger as the sun rises', target: '4 × 15 reps' },
+        { name: 'Outcast Squats', desc: 'Build before the world accepts you', target: '3 × 20 reps' },
+      ],
+      xpReward: 300, goldReward: 150,
+    },
+    {
+      id: 'lions_sin_tavern', rank: 'D', rankIndex: 2,
+      name: "Boar Hat Tavern — The Pride Awakens",
+      desc: "Where Escanor found his place among the Seven Deadly Sins. Where Merlin saw his power for the first time. The tavern that started everything.",
+      missions: [
+        { name: 'Rhitta Overhead Press', desc: 'Press the divine axe overhead', target: '5 × 8 reps' },
+        { name: 'Lion Bench Press', desc: 'The chest of the Lion Sin', target: '5 × 10 reps' },
+        { name: 'Trap Shrugs', desc: 'Traps that frame the upper body', target: '4 × 15 reps' },
+        { name: 'Pride Deadlift', desc: 'The foundation of mass', target: '4 × 6 reps' },
+      ],
+      xpReward: 600, goldReward: 300,
+    },
+    {
+      id: 'galand_fight', rank: 'B', rankIndex: 4,
+      name: "Edinburgh — Galand's Judgement",
+      desc: "Galand of the Ten Commandments. The demon whose touch turned people to stone. Escanor cleaved him in two at high noon with one swing of Rhitta.",
+      missions: [
+        { name: 'Solar Overhead Press', desc: 'Noon power — maximum output', target: '5 × 10 reps' },
+        { name: 'Commandment Squat', desc: 'One for each commandment broken', target: '5 × 10 reps' },
+        { name: 'Edinburgh Farmer Carries', desc: 'Heavy. Slow. Unstoppable.', target: '4 × 40 meters' },
+        { name: 'High Noon Pull-ups', desc: 'Peak power, peak volume', target: '4 × 10 reps' },
+      ],
+      xpReward: 1200, goldReward: 600,
+    },
+    {
+      id: 'the_one_form', rank: 'S', rankIndex: 6,
+      name: "Camelot — The One Absolute Form",
+      desc: "High noon. Escanor becomes The One — the invincible form that exists for only one minute. The strongest being alive. The sun itself.",
+      missions: [
+        { name: 'The One Push-ups', desc: 'Every rep at absolute peak', target: '100 total reps' },
+        { name: 'Solar Gravity Deadlift', desc: 'The weight of the sun', target: '5 × 8 reps' },
+        { name: 'Pride of the Lions Run', desc: 'The stride of the strongest', target: '8 km run' },
+        { name: 'Sunshine Bench Press', desc: 'Chest first — always', target: '5 × 10 reps' },
+        { name: 'Final Form Hold', desc: 'Hold The One form until the minute ends', target: '3 × 120 sec' },
+      ],
+      xpReward: 2500, goldReward: 1250,
+    },
+  ],
+
+  garou: [
+    {
+      id: 'z_city_streets', rank: 'E', rankIndex: 1,
+      name: "Z-City Streets — The Hero Hunt Begins",
+      desc: "Garou declared war on heroes in Z-City. He started with B and A class heroes. He lost his dojo. He gained a mission.",
+      missions: [
+        { name: 'Street Fighter Pull-ups', desc: 'Garou\'s first night out', target: '3 × 10 reps' },
+        { name: 'Hero Hunt Sprints', desc: 'Chase them through the streets', target: '3 × 200m' },
+        { name: 'Martial Arts Plank', desc: 'Hold the ready stance', target: '3 × 45 sec' },
+      ],
+      xpReward: 300, goldReward: 150,
+    },
+    {
+      id: 'bang_dojo_garou', rank: 'D', rankIndex: 2,
+      name: "Bang's Dojo — Before the Expulsion",
+      desc: "Garou was Bang's greatest disciple before he went on a rampage. The same dojo that forged him now fuels his evolution.",
+      missions: [
+        { name: 'Water Stream Pull-ups', desc: 'The style that made Garou', target: '4 × 12 reps' },
+        { name: 'Rock Smashing Push-ups', desc: 'Hard and fast', target: '4 × 20 reps' },
+        { name: 'Limiter Breaking Lateral Raises', desc: 'Widen the shoulder to waist ratio', target: '4 × 15 reps' },
+        { name: 'Dojo Sprint', desc: 'Mountain training', target: '5 km run' },
+      ],
+      xpReward: 600, goldReward: 300,
+    },
+    {
+      id: 'monster_cells', rank: 'B', rankIndex: 4,
+      name: "Monsters Association Prison — Breaking the Limiter",
+      desc: "Chained underground. Monster cells available. Garou rejected them all. He broke his own limits naturally, through pure combat.",
+      missions: [
+        { name: 'Natural Limiter Pull-ups', desc: 'No cells needed', target: '5 × 12 reps' },
+        { name: 'Adaptive Squat Jumps', desc: 'Evolve mid-set', target: '4 × 15 reps' },
+        { name: 'Adaptive Plank', desc: 'Hold until the body adapts', target: '3 × 90 sec' },
+        { name: 'Hero Hunter Endurance Run', desc: 'Keep going even injured', target: '6 km run' },
+      ],
+      xpReward: 1200, goldReward: 600,
+    },
+    {
+      id: 'cosmic_garou', rank: 'S', rankIndex: 6,
+      name: "World's End — Cosmic Garou vs Saitama",
+      desc: "God's power. Perfect counter to every technique. The most dangerous human in One Punch Man history. The final form before Saitama ended it.",
+      missions: [
+        { name: 'Cosmic Push-ups', desc: 'Channel the universe into every rep', target: '100 total reps' },
+        { name: 'God Power Deadlift', desc: 'Cosmic gravity bearing down', target: '5 × 8 reps' },
+        { name: 'World\'s End Sprint', desc: 'Run to the edge of human potential', target: '10 km run' },
+        { name: 'Perfect Counter Rows', desc: 'Match every force with force', target: '5 × 12 reps' },
+        { name: 'Evolution Hold', desc: 'Become more than human', target: '3 × 120 sec' },
+      ],
+      xpReward: 2500, goldReward: 1250,
+    },
+  ],
+
+  guts: [
+    {
+      id: 'koka_town', rank: 'E', rankIndex: 1,
+      name: "Koka Town — Snake Lord's Domain",
+      desc: "Guts's first real fight as the Black Swordsman. A snake apostle terrorizing a town. The Dragon Slayer drawn for the first time in anger.",
+      missions: [
+        { name: 'Black Swordsman Push-ups', desc: 'The opening strike', target: '4 × 15 reps' },
+        { name: 'Snake Lord Sprint', desc: 'Chase the apostle through town', target: '3 km run' },
+        { name: 'Cannon Arm Core', desc: 'Stabilize for the shot', target: '3 × 45 sec' },
+      ],
+      xpReward: 300, goldReward: 150,
+    },
+    {
+      id: 'tower_of_conviction', rank: 'D', rankIndex: 2,
+      name: "Tower of Conviction — Albion",
+      desc: "Religious zealots. Possessed cultists. Father Mozgus and his angels on the roof. Guts fought his way up a crumbling tower to reach Casca.",
+      missions: [
+        { name: 'Tower Climb Pull-ups', desc: 'Floor by floor', target: '5 × 8 reps' },
+        { name: 'Conviction Deadlift', desc: 'Lift with everything you have', target: '4 × 8 reps' },
+        { name: 'Apostle Farmer Carries', desc: 'Carry what others cannot', target: '4 × 40 meters' },
+        { name: 'Rooftop Push-ups', desc: 'The final fight at the top', target: '4 × 15 reps' },
+      ],
+      xpReward: 600, goldReward: 300,
+    },
+    {
+      id: 'hill_of_swords', rank: 'B', rankIndex: 4,
+      name: "Hill of Swords — Reunion with Griffith",
+      desc: "A hill of grave markers. The graves of the Band of the Hawk. Guts stood here with rage and grief and swung at Griffith anyway. Zodd met him.",
+      missions: [
+        { name: 'Dragonslayer Deadlift', desc: 'Carry the weight of the Band', target: '5 × 6 reps' },
+        { name: 'Grief and Rage Pull-ups', desc: 'The strength born from loss', target: '5 × 10 reps' },
+        { name: 'Memorial Carries', desc: 'Carry their memory', target: '3 × 40 meters' },
+        { name: 'Zodd Endurance Plank', desc: 'Hold against an immortal', target: '3 × 90 sec' },
+      ],
+      xpReward: 1200, goldReward: 600,
+    },
+    {
+      id: 'berserker_armor', rank: 'S', rankIndex: 6,
+      name: "Elfhelm — Berserker Armor Unleashed",
+      desc: "The armor that removes all limiters. Pain disappears. Wounds stop mattering. The body breaks itself to keep fighting. Guts paid every price.",
+      missions: [
+        { name: 'Berserker Push-ups', desc: 'Remove all limiters', target: '100 total reps' },
+        { name: 'Dragonslayer Final Deadlift', desc: 'The heaviest pull of your life', target: '5 × 6 reps' },
+        { name: 'Black Swordsman Endurance', desc: 'March through the pain', target: '10 km run' },
+        { name: 'Armor Rows', desc: 'The back that carries war', target: '5 × 12 reps' },
+        { name: 'Brand of Sacrifice Hold', desc: 'Hold through the pain', target: '4 × 120 sec' },
+      ],
+      xpReward: 2500, goldReward: 1250,
+    },
+  ],
+
+  maki: [
+    {
+      id: 'jujutsu_high_training', rank: 'E', rankIndex: 1,
+      name: "Tokyo Jujutsu High — Proving Grounds",
+      desc: "The family said she'd never be a sorcerer. She showed up anyway. Every day at Jujutsu High was a statement. This is where it started.",
+      missions: [
+        { name: 'Restriction Training Pull-ups', desc: 'No cursed energy. Just muscle.', target: '4 × 10 reps' },
+        { name: 'Weapon Master Push-ups', desc: 'Upper body for the tools', target: '4 × 20 reps' },
+        { name: 'Proving Ground Sprint', desc: 'Outrun the sorcerers', target: '3 km run' },
+      ],
+      xpReward: 300, goldReward: 150,
+    },
+    {
+      id: 'zenin_manor_assault', rank: 'D', rankIndex: 2,
+      name: "Zenin Clan Manor — The Reckoning",
+      desc: "The clan that denied her tried to kill her. She walked in alone after Mai's death. She left as the only one standing.",
+      missions: [
+        { name: 'Clan Assault Pull-ups', desc: 'Every rep for Mai', target: '5 × 10 reps' },
+        { name: 'Restriction Push-ups', desc: 'Zero cursed energy, maximum force', target: '5 × 20 reps' },
+        { name: 'Cursed Warehouse Sprint', desc: 'Through the compound', target: '5 km run' },
+        { name: 'Playful Cloud Rows', desc: 'Wield the special grade weapon', target: '4 × 12 reps' },
+      ],
+      xpReward: 600, goldReward: 300,
+    },
+    {
+      id: 'culling_game_colony', rank: 'B', rankIndex: 4,
+      name: "Culling Game — Tokyo Colony",
+      desc: "Kenjaku's death game. Barriers over real-world Japan. Maki entered to fight and rack up points. Her restriction made her untouchable in the colonies.",
+      missions: [
+        { name: 'Colony Assault Burpees', desc: 'Kill count climbing', target: '4 × 15 reps' },
+        { name: 'Restriction Conditioning', desc: 'Superhuman physical output', target: '4 × 20 reps' },
+        { name: 'Colony Sprint', desc: 'Cover the entire colony', target: '5 km run' },
+        { name: 'Agility Plank', desc: 'Balance and core — combat ready', target: '3 × 60 sec' },
+      ],
+      xpReward: 1200, goldReward: 600,
+    },
+    {
+      id: 'toji_tier_maki', rank: 'S', rankIndex: 6,
+      name: "Final Form — Toji Tier Restriction Complete",
+      desc: "After Mai's death completed her restriction, Maki reached Toji's tier. Zero cursed energy. Superhuman body. The weapon that sorcery cannot track.",
+      missions: [
+        { name: 'Toji Tier Pull-ups', desc: 'The strength Toji had', target: '5 × 12 reps' },
+        { name: 'Completed Restriction Push-ups', desc: 'Full output, no limits', target: '100 total reps' },
+        { name: 'Heavenly Body Sprint', desc: 'Faster than cursed techniques', target: '8 km run' },
+        { name: 'Playful Cloud Final Form', desc: 'Carry the invincible weapon', target: '5 × 15 reps' },
+        { name: 'Weapon Stance Hold', desc: 'Still as the perfect fighter', target: '3 × 90 sec' },
+      ],
+      xpReward: 2500, goldReward: 1250,
+    },
+  ],
+
+  yoruichi: [
+    {
+      id: 'urahara_training_ground', rank: 'E', rankIndex: 1,
+      name: "Urahara Shop — Underground Training Ground",
+      desc: "Below the shop in the human world. Yoruichi trained here with Urahara as children beneath Sōkyoku Hill. This is where speed was born.",
+      missions: [
+        { name: 'Flash Step Sprints', desc: 'The first lesson in Shunpo', target: '4 × 100m' },
+        { name: 'Onmitsukidō Push-ups', desc: 'Upper body for the assassin corps', target: '3 × 15 reps' },
+        { name: 'Underground Core Hold', desc: 'Stillness before the flash', target: '3 × 45 sec' },
+      ],
+      xpReward: 300, goldReward: 150,
+    },
+    {
+      id: 'soul_society_infiltration', rank: 'D', rankIndex: 2,
+      name: "Seireitei Infiltration — Breaking Into Soul Society",
+      desc: "Yoruichi led Ichigo's team through Soul Society. She navigated the Seireitei alone while guiding the group. The Goddess of Flash at work.",
+      missions: [
+        { name: 'Seireitei Wall Sprint', desc: 'Over and through the walls', target: '6 × 100m' },
+        { name: 'Shadow Run', desc: 'Move without being seen', target: '5 km run' },
+        { name: 'Shunko Push-ups', desc: 'Kido reinforcing the body', target: '4 × 15 reps' },
+        { name: 'Goddess Jumps', desc: 'Explosive leg power', target: '3 × 20 reps' },
+      ],
+      xpReward: 600, goldReward: 300,
+    },
+    {
+      id: 'sokyoku_hill_bankai', rank: 'B', rankIndex: 4,
+      name: "Sōkyoku Hill — Bankai Training Ground",
+      desc: "The hill Yoruichi and Urahara built as children. Where Ichigo and Renji achieved Bankai. Where Yoruichi herself forged her speed into legend.",
+      missions: [
+        { name: 'Hill Sprint Intervals', desc: 'Up and down Sōkyoku Hill', target: '8 × 100m' },
+        { name: 'Hot Springs Recovery Run', desc: 'Active recovery in the mystic waters', target: '6 km run' },
+        { name: 'Bankai Conditioning Burpees', desc: 'Compress years of training', target: '4 × 15 reps' },
+        { name: 'Goddess of Flash Holds', desc: 'Hold Shunko charge position', target: '3 × 60 sec' },
+      ],
+      xpReward: 1200, goldReward: 600,
+    },
+    {
+      id: 'aizen_final_battle', rank: 'S', rankIndex: 6,
+      name: "Fake Karakura Town — Aizen Assault",
+      desc: "The fake Karakura Town. Aizen with Hogyoku. Yoruichi appeared in armored form and attacked from above with enough force to destroy a city block.",
+      missions: [
+        { name: 'Shunko Armored Push-ups', desc: 'Reinforced body strikes', target: '100 total reps' },
+        { name: 'Aerial Assault Jumps', desc: 'Drop from height, land running', target: '4 × 20 reps' },
+        { name: 'Goddess Sprint', desc: 'The fastest in Soul Society', target: '10 km run' },
+        { name: 'Thunder Clap Squats', desc: 'Explosive lower body from height', target: '5 × 15 reps' },
+        { name: 'Flash Step Hold', desc: 'Compressed energy waiting to release', target: '3 × 90 sec' },
+      ],
+      xpReward: 2500, goldReward: 1250,
+    },
+  ],
+
+  kale: [
+    {
+      id: 'universe_6_tournament', rank: 'E', rankIndex: 1,
+      name: "Tournament of Destroyers — First Appearance",
+      desc: "Kale stood in the background while others fought. Then she transformed. Universe 6 had never seen power like hers. Neither had Universe 7.",
+      missions: [
+        { name: 'Universe 6 Squats', desc: 'Build the Saiyan foundation', target: '4 × 15 reps' },
+        { name: 'Saiyan Push-ups', desc: 'The baseline for a Legendary', target: '4 × 20 reps' },
+        { name: 'Caulifla Training Run', desc: 'Train alongside your friend', target: '3 km run' },
+      ],
+      xpReward: 300, goldReward: 150,
+    },
+    {
+      id: 'legendary_awakening', rank: 'D', rankIndex: 2,
+      name: "Universe 6 Arena — Legendary Super Saiyan Awakens",
+      desc: "The Legendary Super Saiyan form appears once in generations. Broly in Universe 7. Kale in Universe 6. Uncontrolled power. Pure muscle.",
+      missions: [
+        { name: 'Legendary Deadlift', desc: 'The weight of a legend', target: '4 × 10 reps' },
+        { name: 'Berserker Squat', desc: 'Low and powerful', target: '4 × 15 reps' },
+        { name: 'Green Titan Rows', desc: 'Back width to match the power', target: '4 × 12 reps' },
+        { name: 'Saiyan Run', desc: 'Cover ground at Saiyan speed', target: '5 km run' },
+      ],
+      xpReward: 600, goldReward: 300,
+    },
+    {
+      id: 'tournament_of_power_kale', rank: 'B', rankIndex: 4,
+      name: "Tournament of Power — Kefla Fusion",
+      desc: "Kale and Caulifla fused into Kefla. The potara fusion of two Legendary Saiyans. The energy output overwhelmed Goku even in Ultra Instinct Sign.",
+      missions: [
+        { name: 'Fusion Power Squats', desc: 'Double the Saiyan output', target: '5 × 15 reps' },
+        { name: 'Kefla Overhead Press', desc: 'Shoulder mass to match the fusion', target: '4 × 10 reps' },
+        { name: 'Tournament Sprint', desc: 'Cover the arena', target: '6 km run' },
+        { name: 'Legendary Pull-ups', desc: 'Back width for the strongest female Saiyan', target: '4 × 10 reps' },
+      ],
+      xpReward: 1200, goldReward: 600,
+    },
+    {
+      id: 'super_dragon_ball_heroes', rank: 'S', rankIndex: 6,
+      name: "Prison Planet — Legendary Super Saiyan Full Power",
+      desc: "The controlled Legendary form. No more berserker rage. Full power, full awareness. The most powerful female Saiyan alive, in complete control.",
+      missions: [
+        { name: 'Full Power Squats', desc: 'Legendary control — maximum weight', target: '5 × 15 reps' },
+        { name: 'Saiyan Deadlift', desc: 'The foundation of all Saiyan power', target: '5 × 8 reps' },
+        { name: 'Legendary Run', desc: 'The stride of a legend', target: '10 km run' },
+        { name: 'Titan Carries', desc: 'Carry the legacy of the Legendary Saiyan', target: '4 × 40 meters' },
+        { name: 'Universe Plank', desc: 'Hold the power still', target: '3 × 120 sec' },
+      ],
+      xpReward: 2500, goldReward: 1250,
+    },
+  ],
+};
+
 function getTodaysQuest() {
   try {
     const charId = (state && state.characterId) ? state.characterId : 'default';
