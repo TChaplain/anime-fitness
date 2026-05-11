@@ -177,71 +177,205 @@ const RANKS = [
   { id: 'NAT', label: '★',       name: 'National Level',    xpNeeded: 99999, color: '#f97316', questXP: 1500 },
 ];
 
-const QUEST_POOL = [
-  {
-    name: "Shadow Soldier's Trial",
-    exercises: [
-      { name: 'Push-ups',   target: '3 × 20 reps' },
-      { name: 'Sit-ups',    target: '3 × 20 reps' },
-      { name: 'Squats',     target: '3 × 20 reps' },
-      { name: 'Running',    target: '3 km' },
-    ]
-  },
-  {
-    name: "Iron Will Protocol",
-    exercises: [
-      { name: 'Pull-ups',   target: '3 × 8 reps' },
-      { name: 'Dips',       target: '3 × 12 reps' },
-      { name: 'Plank',      target: '3 × 60 sec' },
-      { name: 'Leg Raises', target: '3 × 15 reps' },
-    ]
-  },
-  {
-    name: "Hunter's Endurance Test",
-    exercises: [
-      { name: 'Jump Rope',  target: '10 min' },
-      { name: 'Burpees',    target: '3 × 15 reps' },
-      { name: 'Push-ups',   target: '4 × 15 reps' },
-      { name: 'Mountain Climbers', target: '3 × 30 reps' },
-    ]
-  },
-  {
-    name: "Gate of Strength",
-    exercises: [
-      { name: 'Squat',      target: '4 × 15 reps' },
-      { name: 'Deadlift',   target: '3 × 10 reps' },
-      { name: 'Bench Press', target: '3 × 10 reps' },
-      { name: 'Overhead Press', target: '3 × 10 reps' },
-    ]
-  },
-  {
-    name: "Shadow Monarch's Decree",
-    exercises: [
-      { name: 'Push-ups',   target: '100 total reps' },
-      { name: 'Sit-ups',    target: '100 total reps' },
-      { name: 'Squats',     target: '100 total reps' },
-      { name: 'Running',    target: '10 km' },
-    ]
-  },
-  {
-    name: "Breath of the Sun",
-    exercises: [
-      { name: 'Pull-ups',   target: '4 × 10 reps' },
-      { name: 'Push-ups',   target: '4 × 20 reps' },
-      { name: 'Rows',       target: '3 × 12 reps' },
-      { name: 'Plank',      target: '3 × 90 sec' },
-    ]
-  },
-  {
-    name: "Dungeon Crawl",
-    exercises: [
-      { name: 'Cycling',    target: '20 min' },
-      { name: 'Squat',      target: '3 × 20 reps' },
-      { name: 'Dips',       target: '3 × 15 reps' },
-      { name: 'Sit-ups',    target: '3 × 25 reps' },
-    ]
-  },
-];
+const CHARACTER_QUESTS = {
+  jinwoo: [
+    { name: "Shadow Monarch's Ascent", exercises: [
+      { name: 'Shadow Push-ups', target: '100 total reps' },
+      { name: 'Gate Sprints', target: '10 km run' },
+      { name: 'Dungeon Sit-ups', target: '100 total reps' },
+      { name: 'Hunter Squats', target: '100 total reps' },
+    ]},
+    { name: "E-Rank Daily Trial", exercises: [
+      { name: 'Stealth Pull-ups', target: '3 × 10 reps' },
+      { name: 'Shadow Plank', target: '3 × 60 sec' },
+      { name: 'Arise Leg Raises', target: '3 × 15 reps' },
+      { name: 'System Run', target: '5 km' },
+    ]},
+  ],
+  yuji: [
+    { name: "Divergent Fist Training", exercises: [
+      { name: 'Curse Burpees', target: '3 × 15 reps' },
+      { name: 'Itadori Broad Jumps', target: '3 × 10 reps' },
+      { name: 'Black Flash Push-ups', target: '4 × 20 reps' },
+      { name: 'Jujutsu Sprint', target: '5 km' },
+    ]},
+    { name: "Sorcerer Conditioning", exercises: [
+      { name: 'Explosive Squat Jumps', target: '3 × 12 reps' },
+      { name: 'Cursed Pull-ups', target: '3 × 8 reps' },
+      { name: 'Core Curse Holds', target: '3 × 45 sec' },
+      { name: 'Bear Crawls', target: '3 × 20 meters' },
+    ]},
+  ],
+  goku: [
+    { name: "Super Saiyan Protocol", exercises: [
+      { name: 'Kamehameha Push-ups', target: '4 × 20 reps' },
+      { name: 'Gravity Chamber Squats', target: '4 × 15 reps' },
+      { name: 'Saiyan Pull-ups', target: '4 × 10 reps' },
+      { name: 'Zenkai Run', target: '8 km' },
+    ]},
+    { name: "Hyperbolic Time Chamber", exercises: [
+      { name: 'Weighted Overhead Press', target: '4 × 10 reps' },
+      { name: 'Dragon Fist Burpees', target: '3 × 20 reps' },
+      { name: 'Saiyan Deadlift', target: '3 × 8 reps' },
+      { name: 'Spirit Bomb Plank', target: '3 × 90 sec' },
+    ]},
+  ],
+  baki: [
+    { name: "Underground Arena Circuit", exercises: [
+      { name: 'Grappler Push-ups', target: '5 × 20 reps' },
+      { name: 'Neck Bridge Hold', target: '3 × 30 sec' },
+      { name: 'Demon Back Rows', target: '4 × 12 reps' },
+      { name: 'Hanma Sit-ups', target: '5 × 30 reps' },
+    ]},
+    { name: "Baki's Imaginary Training", exercises: [
+      { name: 'Grip Crush Deadhangs', target: '3 × 60 sec' },
+      { name: 'Wrestler Squats', target: '4 × 20 reps' },
+      { name: 'Ogre Burpees', target: '3 × 15 reps' },
+      { name: 'Core Devastation Plank', target: '3 × 90 sec' },
+    ]},
+  ],
+  toji: [
+    { name: "Sorcerer Killer Protocol", exercises: [
+      { name: 'Assassin Pull-ups', target: '5 × 10 reps' },
+      { name: 'V-Taper Lateral Raises', target: '4 × 15 reps' },
+      { name: 'Heavenly Restriction Rows', target: '4 × 12 reps' },
+      { name: 'Waist Carver Plank', target: '3 × 90 sec' },
+    ]},
+    { name: "Zenin Clan Annihilation", exercises: [
+      { name: 'Chain Whip Dips', target: '4 × 15 reps' },
+      { name: 'Killer Overhead Press', target: '3 × 10 reps' },
+      { name: 'MMA Sprint Intervals', target: '6 × 200m' },
+      { name: 'Oblique Assassin Twists', target: '3 × 20 reps' },
+    ]},
+  ],
+  asta: [
+    { name: "Anti-Magic Devil Training", exercises: [
+      { name: 'Grimoire Sword Swings', target: '3 × 50 reps' },
+      { name: 'Black Clover Push-ups', target: '5 × 20 reps' },
+      { name: 'Peasant Farmer Carries', target: '3 × 40 meters' },
+      { name: 'No Magic Pull-ups', target: '4 × 8 reps' },
+    ]},
+    { name: "Devil Union Conditioning", exercises: [
+      { name: 'Yami Squat Challenge', target: '100 total reps' },
+      { name: 'Tree Climb Pull-ups', target: '3 × 10 reps' },
+      { name: 'Asta Run', target: '5 km' },
+      { name: 'Devil Core Sit-ups', target: '100 total reps' },
+    ]},
+  ],
+  saitama: [
+    { name: "Hero for Fun Daily Grind", exercises: [
+      { name: 'OPM Push-ups', target: '100 total reps' },
+      { name: 'OPM Sit-ups', target: '100 total reps' },
+      { name: 'OPM Squats', target: '100 total reps' },
+      { name: 'Caped Baldy Run', target: '10 km' },
+    ]},
+    { name: "C-Class Warm-Up", exercises: [
+      { name: 'Hero Push-ups', target: '3 × 20 reps' },
+      { name: 'One Punch Squats', target: '3 × 30 reps' },
+      { name: 'Serious Plank', target: '3 × 60 sec' },
+      { name: 'Training Run', target: '5 km' },
+    ]},
+  ],
+  escanor: [
+    { name: "Pride of the Lion's Sin", exercises: [
+      { name: 'Solar Overhead Press', target: '5 × 8 reps' },
+      { name: 'Sunshine Bench Press', target: '5 × 8 reps' },
+      { name: 'Escanor Trap Shrugs', target: '4 × 15 reps' },
+      { name: 'Pride Deadlift', target: '4 × 6 reps' },
+    ]},
+    { name: "The One Absolute Form", exercises: [
+      { name: 'Boulder Squat', target: '5 × 10 reps' },
+      { name: 'Titan Push Press', target: '4 × 8 reps' },
+      { name: 'Rhitta Carries', target: '3 × 40 meters' },
+      { name: 'Lion Roar Pull-ups', target: '4 × 8 reps' },
+    ]},
+  ],
+  garou: [
+    { name: "Hero Hunt Conditioning", exercises: [
+      { name: 'Water Stream Pull-ups', target: '4 × 10 reps' },
+      { name: 'Monster Squat Jumps', target: '4 × 12 reps' },
+      { name: 'Fist of Flowing Water Push-ups', target: '4 × 20 reps' },
+      { name: 'Hero Hunter Run', target: '6 km' },
+    ]},
+    { name: "Breaking the Limiter", exercises: [
+      { name: 'Garou Lateral Raises', target: '4 × 15 reps' },
+      { name: 'Bang Style Dips', target: '4 × 12 reps' },
+      { name: 'Adaptive Plank Hold', target: '3 × 90 sec' },
+      { name: 'Jump Rope Circuit', target: '15 min' },
+    ]},
+  ],
+  guts: [
+    { name: "The Black Swordsman's Trial", exercises: [
+      { name: 'Dragonslayer Deadlift', target: '4 × 6 reps' },
+      { name: 'Berserker Pull-ups', target: '5 × 8 reps' },
+      { name: 'Berserk Farmer Carries', target: '4 × 40 meters' },
+      { name: 'Apostle Crusher Push-ups', target: '4 × 15 reps' },
+    ]},
+    { name: "Eclipse Survivor Protocol", exercises: [
+      { name: 'Casca Overhead Press', target: '4 × 8 reps' },
+      { name: 'Guts Squat', target: '4 × 10 reps' },
+      { name: 'Iron Skin Plank', target: '3 × 120 sec' },
+      { name: 'Endurance March', target: '8 km' },
+    ]},
+  ],
+  maki: [
+    { name: "Heavenly Restriction Drill", exercises: [
+      { name: 'Cursed Tool Pull-ups', target: '4 × 10 reps' },
+      { name: 'Zenin Clan Push-ups', target: '4 × 20 reps' },
+      { name: 'Staff Stance Plank', target: '3 × 60 sec' },
+      { name: 'Maki Sprint Drill', target: '5 km' },
+    ]},
+    { name: "Sorcerer Without Cursed Energy", exercises: [
+      { name: 'Explosive Clap Push-ups', target: '3 × 12 reps' },
+      { name: 'Box Jump Pistol Squat', target: '3 × 8 reps' },
+      { name: 'Weapon Master Rows', target: '4 × 12 reps' },
+      { name: 'HIIT Combat Circuit', target: '20 min' },
+    ]},
+  ],
+  yoruichi: [
+    { name: "Flash Step Training", exercises: [
+      { name: 'Shunpo Sprint Intervals', target: '8 × 100m' },
+      { name: 'Goddess of Flash Jumps', target: '3 × 20 reps' },
+      { name: 'Onmitsukido Push-ups', target: '4 × 15 reps' },
+      { name: 'Shadow Run', target: '5 km' },
+    ]},
+    { name: "Kido Corps Conditioning", exercises: [
+      { name: 'Assassin Burpees', target: '4 × 15 reps' },
+      { name: 'Yoruichi Core Holds', target: '3 × 60 sec' },
+      { name: 'Parkour Box Jumps', target: '3 × 15 reps' },
+      { name: 'Speed Ladder Drills', target: '15 min' },
+    ]},
+  ],
+  kale: [
+    { name: "Legendary Saiyan Awakening", exercises: [
+      { name: 'Broly Squat', target: '5 × 10 reps' },
+      { name: 'Saiyan Deadlift', target: '4 × 8 reps' },
+      { name: 'Kale Power Row', target: '4 × 10 reps' },
+      { name: 'Super Saiyan Run', target: '6 km' },
+    ]},
+    { name: "Universe 6 Power Protocol", exercises: [
+      { name: 'Berserker Squat Press', target: '4 × 10 reps' },
+      { name: 'Legendary Pull-ups', target: '4 × 8 reps' },
+      { name: 'Green Titan Carries', target: '3 × 40 meters' },
+      { name: 'Caulifla Core Sit-ups', target: '4 × 25 reps' },
+    ]},
+  ],
+  default: [
+    { name: "Hunter's Daily Protocol", exercises: [
+      { name: 'Push-ups', target: '3 × 20 reps' },
+      { name: 'Squats', target: '3 × 20 reps' },
+      { name: 'Plank', target: '3 × 60 sec' },
+      { name: 'Run', target: '3 km' },
+    ]},
+  ],
+};
+
+function getTodaysQuest() {
+  const charId = state.characterId || 'default';
+  const pool = CHARACTER_QUESTS[charId] || CHARACTER_QUESTS.default;
+  const day = new Date().getDate() + new Date().getMonth() * 31;
+  return pool[day % pool.length];
+}
 
 const ACHIEVEMENTS = [
   { id: 'first_quest',   icon: '⚔️', name: 'FIRST QUEST',     desc: 'Complete your first daily quest' },
@@ -334,6 +468,7 @@ function getTodaysQuest() {
 
 window.addEventListener('load', () => {
   loadState();
+  initTabs(); // always runs once, regardless of flow
 
   setTimeout(() => {
     document.getElementById('boot-screen').classList.add('hidden');
@@ -365,7 +500,6 @@ function launchApp() {
   document.getElementById('app').classList.remove('hidden');
   loadCharacterTheme();
   renderAll();
-  initTabs();
 }
 
 function checkDayRollover() {
