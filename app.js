@@ -59,9 +59,9 @@ const CHARACTERS = [
     emoji: '🗡️',
     tag: 'SORCERER KILLER',
     physique: 'V-Taper Aesthetic',
-    goal: 'Maximum shoulder-to-waist ratio, broad back, chiseled core',
-    priority: ['Shoulder Width', 'Waist Reduction', 'Back Width'],
-    trainingStyle: 'MMA + Compound Lifting',
+    goal: 'Maximum shoulder-to-waist ratio with broad capped shoulders, winged lats, thick arms, and extremely low body fat — the perfect V-taper fighter physique',
+    priority: ['Shoulder Width & Capped Delts', 'Lat Spread & Back Width', 'Waist Tightness', 'Arm Thickness', 'Low Body Fat'],
+    trainingStyle: 'MMA + Compound Lifting + Functional Conditioning',
     colors: { primary: '#22c55e', secondary: '#4ade80', accent: '#001a08', glow: '#22c55e60' }
   },
   {
@@ -375,10 +375,79 @@ function getTodaysQuest() {
     const charId = (state && state.characterId) ? state.characterId : 'default';
     const pool = CHARACTER_QUESTS[charId] || CHARACTER_QUESTS['default'];
     const day = new Date().getDate() + new Date().getMonth() * 31;
-    return pool[day % pool.length];
+    const quest = pool[day % pool.length];
+    const tier = (state && state.tier) ? state.tier : 'intermediate';
+
+    // Deep clone so we never mutate the original data
+    const scaled = {
+      name: quest.name,
+      exercises: quest.exercises.map(ex => ({
+        name: ex.name,
+        target: scaleTarget(ex.target, tier)
+      }))
+    };
+    return scaled;
   } catch(e) {
     return CHARACTER_QUESTS['default'][0];
   }
+}
+
+function scaleTarget(target, tier) {
+  if (tier === 'intermediate') return target;
+
+  const up = tier === 'advanced';
+
+  // '100 total reps' → scale the total
+  if (/^\d+\s*total reps$/i.test(target)) {
+    const n = parseInt(target);
+    const scaled = up ? Math.round(n * 1.3 / 5) * 5 : Math.round(n * 0.7 / 5) * 5;
+    return `${scaled} total reps`;
+  }
+
+  // 'N × M reps' → scale reps, keep sets
+  if (/^\d+\s*×\s*\d+\s*reps$/i.test(target)) {
+    const [sets, reps] = target.split('×').map(s => parseInt(s.trim()));
+    const scaledReps = up ? Math.round(reps * 1.3) : Math.round(reps * 0.7);
+    return `${sets} × ${scaledReps} reps`;
+  }
+
+  // 'N × M sec' → scale seconds, keep sets
+  if (/^\d+\s*×\s*\d+\s*sec$/i.test(target)) {
+    const [sets, secs] = target.split('×').map(s => parseInt(s.trim()));
+    const scaledSecs = up ? Math.round(secs * 1.3 / 5) * 5 : Math.round(secs * 0.7 / 5) * 5;
+    return `${sets} × ${scaledSecs} sec`;
+  }
+
+  // 'N km' → scale distance
+  if (/^\d+(\.\d+)?\s*km$/i.test(target)) {
+    const km = parseFloat(target);
+    const scaledKm = up ? Math.round(km * 1.25 * 2) / 2 : Math.round(km * 0.7 * 2) / 2;
+    return `${scaledKm} km`;
+  }
+
+  // 'N min' → scale duration
+  if (/^\d+\s*min$/i.test(target)) {
+    const mins = parseInt(target);
+    const scaledMins = up ? Math.round(mins * 1.3 / 5) * 5 : Math.round(mins * 0.7 / 5) * 5;
+    return `${scaledMins} min`;
+  }
+
+  // 'N × M meters' → scale meters, keep sets
+  if (/^\d+\s*×\s*\d+\s*meters$/i.test(target)) {
+    const [sets, meters] = target.split('×').map(s => parseInt(s.trim()));
+    const scaledMeters = up ? Math.round(meters * 1.3 / 10) * 10 : Math.round(meters * 0.7 / 10) * 10;
+    return `${sets} × ${scaledMeters} meters`;
+  }
+
+  // 'N × Mm' sprint intervals (e.g. '8 × 100m', '6 × 200m') → scale sets, keep distance
+  if (/^\d+\s*×\s*\d+m$/i.test(target)) {
+    const [sets, dist] = target.split('×').map(s => parseInt(s.trim()));
+    const scaledSets = up ? sets + 2 : Math.max(2, sets - 2);
+    return `${scaledSets} × ${dist}m`;
+  }
+
+  // Anything unrecognized — return as-is
+  return target;
 }
 
 const ACHIEVEMENTS = [
@@ -509,9 +578,9 @@ function launchApp() {
     return;
   }
   // Repair missing roadmap for existing saves
-  if (state.assessmentDone && state.physiqueRoadmap.length === 0) {
-    buildPhysiqueRoadmap();
-  }
+  if (state.assessmentDone) {
+  buildPhysiqueRoadmap();
+}
   document.getElementById('app').classList.remove('hidden');
   renderAll();
 }
