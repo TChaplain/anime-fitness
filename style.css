@@ -804,6 +804,14 @@ header {
   margin-left: 0.5rem;
 }
 
+.quest-card-progress {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--cyan);
+  letter-spacing: 0.08em;
+  margin-top: 0.25rem;
+}
+
 .quest-card-name {
   font-family: var(--head);
   font-size: 1.05rem;

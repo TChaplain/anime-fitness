@@ -12,8 +12,8 @@ const CHARACTERS = [
     tag: 'SHADOW MONARCH',
     physique: 'Lean & Muscular',
     goal: 'Cut fat, build lean calisthenics muscle, high endurance',
-    priority: ['Core', 'Endurance', 'Calisthenics Strength'],
-    trainingStyle: 'Calisthenics + Running',
+    priority: ['Lean Calisthenics Muscle', 'Core & Ab Definition', 'Running Endurance', 'Shoulder V-Taper'],
+    trainingStyle: 'High-Volume Calisthenics + Running',
     colors: { primary: '#7c3aed', secondary: '#a855f7', accent: '#1e1b4b', glow: '#7c3aed60' }
   },
   {
@@ -23,9 +23,9 @@ const CHARACTERS = [
     emoji: '👊',
     tag: 'DIVERGENT FIST',
     physique: 'Dense Athletic',
-    goal: 'Build functional mass, explosive power, thick legs and back',
-    priority: ['Explosive Power', 'Full Body Strength', 'Conditioning'],
-    trainingStyle: 'Plyometrics + Compound Lifts',
+    goal: 'Build a stocky, powerful frame — thick explosive legs, dense torso, powerful arms — the physique of a combat athlete, not a bodybuilder',
+    priority: ['Explosive Leg Mass', 'Thick Torso & Core Density', 'Arm Power & Size', 'Full Body Conditioning'],
+    trainingStyle: 'Plyometrics + Compound Lifts + Combat Training',
     colors: { primary: '#ec4899', secondary: '#f472b6', accent: '#1a0a1a', glow: '#ec489960' }
   },
   {
@@ -35,9 +35,9 @@ const CHARACTERS = [
     emoji: '⚡',
     tag: 'SUPER SAIYAN',
     physique: 'Classic Muscular',
-    goal: 'Build shoulder and arm mass while staying lean, classic proportions',
-    priority: ['Muscle Mass', 'Shoulder Width', 'Leanness'],
-    trainingStyle: 'Heavy Compounds + Martial Arts',
+    goal: 'Build a perfect V-taper with full round shoulders, thick chest, and a tight waist — the golden ratio bodybuilder proportions',
+    priority: ['Shoulder Roundness & Width', 'Upper Chest Fullness', 'Waist Tightness', 'Overall Leanness & Symmetry'],
+    trainingStyle: 'Classic Bodybuilding + Martial Arts Conditioning',
     colors: { primary: '#f59e0b', secondary: '#fbbf24', accent: '#1a1500', glow: '#f59e0b60' }
   },
   {
@@ -46,10 +46,10 @@ const CHARACTERS = [
     series: 'Baki',
     emoji: '💀',
     tag: 'UNDERGROUND KING',
-    physique: 'Extreme Shred',
-    goal: 'Maximum definition, zero body fat, visible striations and vascularity',
-    priority: ['Fat Loss', 'Core Definition', 'Vascularity'],
-    trainingStyle: 'Grappling + Old-School Iron',
+    physique: 'X-Frame Shred',
+    goal: 'Build massive traps, thick neck, wide back and lats, then shred to single-digit body fat to reveal striations, vascularity, and deep obliques',
+    priority: ['Trap & Neck Thickness', 'Back Width & Lat Spread', 'Core Shred & Obliques', 'Leg Mass', 'Full Body Vascularity'],
+    trainingStyle: 'Grappling + Old-School Iron + High-Volume Bodybuilding',
     colors: { primary: '#ef4444', secondary: '#f87171', accent: '#1a0000', glow: '#ef444460' }
   },
   {
@@ -94,10 +94,10 @@ const CHARACTERS = [
     series: 'Seven Deadly Sins',
     emoji: '☀️',
     tag: 'THE ONE',
-    physique: 'Maximum Mass',
-    goal: 'Pure size and strength — traps, shoulders, chest. Bulk focused.',
-    priority: ['Trap Mass', 'Shoulder Size', 'Overall Bulk'],
-    trainingStyle: 'Heavy Barbell Compounds',
+    physique: 'Maximum Upper Body Mass',
+    goal: 'Disproportionately massive chest, traps, and shoulders that dwarf the lower body — pure upper body bulk and thickness above all else',
+    priority: ['Chest Thickness & Upper Chest', 'Trap & Upper Back Mass', 'Shoulder Size & Roundness', 'Arm Thickness', 'Overall Bulk'],
+    trainingStyle: 'Heavy Barbell Compounds + Powerbuilding',
     colors: { primary: '#f97316', secondary: '#fb923c', accent: '#1a0800', glow: '#f9731660' }
   },
   {
@@ -108,8 +108,8 @@ const CHARACTERS = [
     tag: 'HERO HUNTER',
     physique: 'V-Taper Martial Artist',
     goal: 'Wide 3D shoulders, winged lats, slim waist, athletic explosive legs',
-    priority: ['Shoulder Width', 'Lat Spread', 'Explosiveness'],
-    trainingStyle: 'Martial Arts + Explosive Calisthenics',
+    priority: ['Shoulder Width & 3D Delts', 'Lat Spread', 'Explosive Athletic Legs', 'Shredded Midsection'],
+    trainingStyle: 'Calisthenics + Martial Arts + Explosive Training',
     colors: { primary: '#94a3b8', secondary: '#cbd5e1', accent: '#0f1117', glow: '#94a3b860' }
   },
   {
@@ -119,9 +119,9 @@ const CHARACTERS = [
     emoji: '🗡️',
     tag: 'BLACK SWORDSMAN',
     physique: 'Raw Power',
-    goal: 'Brutal strength and mass — shoulders, back, arms built to carry weight',
-    priority: ['Raw Strength', 'Back Mass', 'Grip Strength'],
-    trainingStyle: 'Heavy Carries + Powerlifting',
+    goal: 'Build a battle-hardened powerbuilder physique — thick mid/lower back, massive arms and forearms, dense traps, low body fat to keep it functional not bulky',
+    priority: ['Mid & Lower Back Thickness', 'Arm & Forearm Mass', 'Trap & Neck Density', 'Grip Strength', 'Low Body Fat'],
+    trainingStyle: 'Powerlifting + Heavy Carries + Kettlebell Work',
     colors: { primary: '#78716c', secondary: '#a8a29e', accent: '#0a0807', glow: '#78716c60' }
   },
   {
@@ -132,8 +132,8 @@ const CHARACTERS = [
     tag: 'HEAVENLY RESTRICTION',
     physique: 'Lean & Toned',
     goal: 'Lean muscle, defined arms and shoulders, tight core, athletic legs',
-    priority: ['Lean Muscle', 'Core Definition', 'Agility'],
-    trainingStyle: 'HIIT Calisthenics + MMA',
+    priority: ['Functional Calisthenics Strength', 'Explosive Power & Agility', 'Core Definition & Grip', 'Lean Athletic Conditioning'],
+    trainingStyle: 'Progressive Calisthenics + HIIT + MMA',
     colors: { primary: '#10b981', secondary: '#34d399', accent: '#001a0f', glow: '#10b98160' }
   },
   {
@@ -143,9 +143,9 @@ const CHARACTERS = [
     emoji: '⚡',
     tag: 'GODDESS OF FLASH',
     physique: 'Speed-Lean',
-    goal: 'Explosive legs, defined core, low body fat, maximum agility',
-    priority: ['Speed', 'Agility', 'Low Body Fat'],
-    trainingStyle: 'Sprinting + Parkour + MMA',
+    goal: 'Explosive sprinter legs with defined glutes and quads, tight shredded core, lean upper body — built for speed and agility not mass',
+    priority: ['Quad & Glute Development', 'Low Body Fat', 'Explosive Speed', 'Core Definition', 'Agility & Mobility'],
+    trainingStyle: 'Sprinting + Plyometrics + MMA + Parkour',
     colors: { primary: '#a855f7', secondary: '#c084fc', accent: '#0f0020', glow: '#a855f760' }
   },
   {
@@ -622,6 +622,7 @@ function renderQuestTab() {
             <div class="quest-card-rank">[${rank.label}-RANK] <span>DAILY</span></div>
             <div class="quest-card-name">${ex.name}</div>
             <div class="quest-card-desc">${ex.target}</div>
+            ${!done && (state.questProgress[i] || 0) > 0 ? `<div class="quest-card-progress">LOGGED: ${state.questProgress[i]} reps</div>` : ''}
           </div>
         </div>
         <div class="quest-card-bottom">
@@ -965,21 +966,118 @@ function buildPhysiqueRoadmap() {
 
   const bf = state.assessment.bodyfat;
   const goal = state.assessment.goal;
+  const tier = state.tier;
 
-  // Generate personalized focus areas based on character + current body
   const steps = [];
 
-  // Fat loss priority
+  // Phase 0: Fat loss gate — only if they're carrying significant fat
   if (bf === 'fat' || bf === 'obese') {
-    steps.push({ phase: 'PHASE 1', title: 'Cut & Reveal', desc: `Reduce body fat to start revealing the foundation. ${char.name} physique requires visible muscle definition.` });
+    steps.push({
+      phase: 'PHASE 1',
+      title: 'Cut First — Reveal the Foundation',
+      desc: `${char.name}'s physique only reads correctly at low body fat. Before building shape, you need to strip the excess. Caloric deficit + cardio + compound lifts 4x/week. Target: reach "average" body composition before Phase 2.`
+    });
   }
 
-  // Character-specific structural goals
-  char.priority.forEach((p, i) => {
-    steps.push({ phase: `PHASE ${steps.length + 1}`, title: p, desc: `Build ${p.toLowerCase()} to match ${char.name}'s physique profile.` });
+  // Character-specific roadmap phases
+  const ROADMAPS = {
+    jinwoo: [
+      { title: 'Build the Calisthenics Base', desc: 'Master push-ups, pull-ups, dips, and leg raises with volume. Jinwoo\'s body is built through high-rep bodyweight work — aim for 100 push-ups and 20 pull-ups before advancing.' },
+      { title: 'Core & Ab Definition', desc: 'Visible abs are central to this physique. Daily weighted ab work — hanging leg raises, decline sit-ups, cable crunches. Target: visible 6-pack at 12% body fat or below.' },
+      { title: 'Running Endurance', desc: 'Jinwoo runs constantly. Build to 10km at a steady pace, then add sprint intervals. This also keeps body fat low while building lean leg muscle.' },
+      { title: 'Lean Muscle Polish', desc: 'Add weighted calisthenics — weighted pull-ups, ring dips, archer push-ups — to add density without bulk. Keep body fat under 12% throughout.' },
+    ],
+    yuji: [
+      { title: 'Build Explosive Leg Power', desc: 'Yuji\'s physique starts from the ground up. Heavy squats, Romanian deadlifts, box jumps, and broad jumps 3x/week. Thick quads and hamstrings are his most defining feature.' },
+      { title: 'Develop Torso Density', desc: 'A thick, blocky core and chest built for absorbing hits. Bench press, weighted dips, barbell rows, and heavy deadlifts. This isn\'t about aesthetics — it\'s about functional density.' },
+      { title: 'Power & Arm Size', desc: 'Barbell curls, close-grip bench, dips, and push press for thick arms. Combine with plyometric push-ups and medicine ball slams for the explosive combat power.' },
+      { title: 'Combat Conditioning', desc: 'Add conditioning circuits to keep body fat in the 10-14% range while maintaining mass. Sprint intervals, battle ropes, and heavy bag work 2x/week.' },
+    ],
+    goku: [
+      { title: 'Build Round, 3D Shoulders', desc: 'The V-taper starts with shoulder width. Overhead press, lateral raises, rear delt flies, upright rows — hit all three delt heads. This is what creates Goku\'s iconic silhouette.' },
+      { title: 'Develop Full Chest & Upper Back', desc: 'Flat and incline bench press, cable flyes for the upper chest. Barbell rows and lat pulldowns for the back. Together these create the wide frontal plane.' },
+      { title: 'Tighten the Waist', desc: 'Goku has almost no waist. Avoid heavy oblique work that widens the midsection. Instead: plank variations, leg raises, and vacuum breathing to tighten the core wall.' },
+      { title: 'Get Shredded — Reveal the Symmetry', desc: 'Cut to 8-11% body fat to reveal the proportions you\'ve built. At this stage everything comes together. Classic physique requires low body fat to see the V-taper properly.' },
+    ],
+    baki: [
+      { title: 'Build Trap & Neck Thickness', desc: 'Baki\'s traps and neck are freakish — they frame his entire upper body. Heavy shrugs, face pulls, neck bridges, deadlifts, and farmer carries. This is what makes the X-frame silhouette visible from a distance.' },
+      { title: 'Build Back Width & Lat Spread', desc: 'Wide lats create the top of the X. Pull-ups, lat pulldowns, straight-arm pulldowns, and dumbbell pullovers to build that demon back wingspan.' },
+      { title: 'Oblique & Core Definition', desc: 'Baki\'s obliques are carved deep and his abs are thick. Weighted oblique work, hanging leg raises with a twist, dragon flags, and ab wheel rollouts. The waist must stay small for the X to read.' },
+      { title: 'Leg Mass for the Bottom of the X', desc: 'Thick quads and hamstrings complete the X-frame. Heavy squats, leg press, Romanian deadlifts, and walking lunges. The legs need to match the upper body in width.' },
+      { title: 'Shred to Single Digits', desc: 'Baki is visibly striated at full display. Cut to 6-9% body fat — every muscle needs to show. Increase cardio, tighten diet. Vascularity and striations only appear when body fat is extremely low.' },
+    ],
+    toji: [
+      { title: 'Build Maximum Shoulder Width', desc: 'Toji\'s V-taper is defined by wide, capped shoulders. Heavy lateral raises, Arnold presses, cable lateral raises, upright rows. Make your shoulders the widest point of your body.' },
+      { title: 'Widen the Back — Winged Lats', desc: 'Wide lats are the second pillar of the V-taper. Pull-ups, lat pulldowns, single-arm rows, and straight-arm cable pulldowns. The back should look like a pair of wings from the rear.' },
+      { title: 'Tighten the Waist', desc: 'The ratio only works if the waist is small. No heavy side bends or oblique loading. Plank variations, ab vacuums, and leg raises to keep the waist tight and the V-taper sharp.' },
+      { title: 'Cut & Reveal the V-Taper', desc: 'Toji stays lean year-round. Cut to 8-12% body fat to make the shoulder-to-waist ratio as dramatic as possible. At this stage the physique reads exactly like his.' },
+    ],
+    asta: [
+      { title: 'Build Arm Size on a Compact Frame', desc: 'Asta is short with disproportionately thick arms. Barbell and dumbbell curls, close-grip bench, weighted dips, and tricep pushdowns for maximum arm size relative to frame.' },
+      { title: 'Back Width for Visual Size', desc: 'Width matters more on a compact frame. Pull-ups, lat pulldowns, and dumbbell rows 3x/week. Wide lats make a shorter physique look much more impressive.' },
+      { title: 'Cut for Shredded Abs', desc: 'Asta has no body fat. Get to sub-12% with high-rep conditioning work and a caloric deficit. His abs are thick and defined — direct weighted ab work daily.' },
+      { title: 'Overall Density & Conditioning', desc: 'Carry work, high-rep calisthenics, and conditioning circuits to build the dense functional muscle that covers every inch of Asta\'s frame.' },
+    ],
+    saitama: [
+      { title: 'Strip the Fat First', desc: 'Saitama is lean and athletic — not shredded. Get to 12-15% body fat through cardio and a moderate caloric deficit. The OPM routine (100 push-ups, sit-ups, squats + 10km run daily) works here literally.' },
+      { title: 'Build Baseline Calisthenics Strength', desc: 'Push-ups, sit-ups, bodyweight squats, and running. Master these at high volume before adding resistance. Saitama\'s physique is functional, not bodybuilder-style.' },
+      { title: 'Core Visibility', desc: 'A flat, defined stomach is the visual centerpiece. Lower ab work — leg raises, reverse crunches, planks — combined with diet to get visible abs at a comfortable body fat.' },
+      { title: 'Maintain & Stay Lean', desc: 'The final phase is consistency. Saitama doesn\'t look like a bodybuilder — he looks like a guy who trains hard every single day. Consistent volume over time is the whole plan.' },
+    ],
+    escanor: [
+      { title: 'Build a Massive Chest', desc: 'Escanor\'s chest is the first thing you see. Flat and incline barbell bench press as the primary movers. Add weighted dips and cable flyes. Prioritize upper chest to build the shelf-like appearance.' },
+      { title: 'Overload the Traps & Upper Back', desc: 'Escanor\'s traps erupt from his neck and frame his entire upper body. Heavy barbell shrugs, power cleans, face pulls, and rack pulls. Traps should look disproportionately large.' },
+      { title: 'Build Massive Round Shoulders', desc: 'Wide shoulders complete the overwhelming upper body. Seated overhead press, heavy lateral raises, and upright rows. Every head of the delt needs to be developed.' },
+      { title: 'Add Arm Thickness', desc: 'Thick arms reinforce the overall mass. Heavy barbell curls, skull crushers, close-grip bench, and hammer curls. Arms should look proportionally large for the upper body.' },
+      { title: 'Bulk Aggressively & Eat for Size', desc: 'Escanor\'s physique requires surplus eating. Caloric surplus of 300-500 above maintenance. Progressive overload on all major compounds every single week. This build takes years of consistent heavy work.' },
+    ],
+    garou: [
+      { title: 'Build 3D Capped Shoulders', desc: 'Garou\'s silhouette is defined by wide, round shoulders. Lateral raises, overhead press, cable lateral raises, and rear delt flies. All three heads must be developed for the 3D look.' },
+      { title: 'Build Winged Lats', desc: 'Pull-ups, lat pulldowns, straight-arm pulldowns, and rows. Garou\'s back tapers dramatically from shoulder to waist. Build the lats wide from every angle.' },
+      { title: 'Develop Explosive Athletic Legs', desc: 'Garou has athletic, defined legs built for explosive movement. Bulgarian split squats, jump squats, box jumps, and sprints — not leg press machines. Lean and powerful, not bulky.' },
+      { title: 'Cut to Reveal the V-Taper', desc: 'Get to 10-13% body fat. At this level the shoulder-to-waist ratio becomes dramatic and the martial artist aesthetic is clear. Garou is lean but not shredded — this is the target zone.' },
+    ],
+    guts: [
+      { title: 'Build the Mid & Lower Back', desc: 'Guts\' most defining feature is his thick, slab-like back. Deadlifts, barbell rows, T-bar rows, and rack pulls build the mid and lower back thickness that makes him look like he was forged. This is the foundation.' },
+      { title: 'Build Arm & Forearm Mass', desc: 'Thick arms and freakish forearms from carrying heavy weapons. Barbell curls, hammer curls, farmers carries, and dead hangs. The forearms specifically need direct loaded work — barbell wrist curls and reverse curls.' },
+      { title: 'Build Trap & Neck Density', desc: 'Heavy shrugs, power shrugs, and farmer carries for trap thickness. Neck bridges for neck thickness. These combine with the back to create the battle-built upper body.' },
+      { title: 'Powerbuilding & Leanness', desc: 'Guts is lean enough to show all the muscle with clear separation but not shredded. Target 10-14% body fat. Maintain with heavy compound work and minimal cardio — this is the powerbuilder zone.' },
+    ],
+    maki: [
+      { title: 'Build Lean Muscle Across the Full Body', desc: 'Maki is lean, defined, and athletic — not bulky. Moderate weight, higher reps on compound lifts. Pull-ups, dips, squats, rows. Build muscle without adding unnecessary size.' },
+      { title: 'Core Definition', desc: 'A tight, defined waist and visible abs are central to Maki\'s physique. Daily core work — planks, ab wheel, leg raises. Keep waist tight through diet and avoid heavy oblique loading that widens the midsection.' },
+      { title: 'Agility & Athletic Conditioning', desc: 'HIIT circuits, sprint intervals, and agility ladder drills 2-3x/week. Maki is a fighter first — the conditioning work also keeps body fat low and maintains the lean athletic look.' },
+      { title: 'Reach & Maintain 14-18% Body Fat', desc: 'The lean athletic physique reads best in this body fat range for women — visible muscle tone, no excess fat, athletic definition. Consistent diet management is the key to staying here long-term.' },
+    ],
+    yoruichi: [
+      { title: 'Build Explosive Quad & Glute Development', desc: 'Yoruichi\'s legs are built like a sprinter\'s — thick quads, round glutes, defined hamstrings. Hip thrusts, Bulgarian split squats, Romanian deadlifts, and heavy squats. This is 60% of the work.' },
+      { title: 'Sprint Training for Speed & Leg Definition', desc: 'Actual sprinting 2-3x/week defines the legs in a way weightlifting alone can\'t. 8x100m sprints or hill sprints. Sprinting builds the specific muscle distribution of a speed athlete.' },
+      { title: 'Cut to Low Body Fat', desc: 'Lean, defined legs and a tight core require low body fat. Target 14-18% for women, maintaining through caloric discipline and cardio volume. The leg definition only fully appears when body fat is in this range.' },
+      { title: 'Maintain Agility & Core Tightness', desc: 'Parkour-style conditioning, agility work, and core circuits to keep the waist tight and movement quality high. Yoruichi\'s physique is functional speed — not just aesthetics.' },
+    ],
+    kale: [
+      { title: 'Build Maximum Leg Mass', desc: 'Kale\'s legs are her most distinctive feature — thick, powerful, and wide. Heavy back squats, leg press, Romanian deadlifts, and walking lunges with volume. Legs need to be trained like a top priority, not an afterthought.' },
+      { title: 'Build a Wide, Thick Back', desc: 'Weighted pull-ups, barbell rows, T-bar rows, and lat pulldowns. A wide back combined with thick legs creates the powerful overall frame.' },
+      { title: 'Build Overall Shoulder & Strength Mass', desc: 'Heavy overhead press, lateral raises, and shrugs to broaden the shoulders and complete the powerful silhouette. Everything should look proportionally large.' },
+      { title: 'Bulk Phase — Eat for Size', desc: 'Kale\'s build requires actual mass. Eat in a moderate caloric surplus (200-400 over maintenance) while training heavy. This physique is not compatible with staying lean — prioritize building the size first, then refine.' },
+    ],
+  };
+
+  const charPhases = ROADMAPS[char.id] || ROADMAPS['jinwoo'];
+
+  charPhases.forEach((p, i) => {
+    steps.push({
+      phase: `PHASE ${steps.length + 1}`,
+      title: p.title,
+      desc: p.desc
+    });
   });
 
-  steps.push({ phase: `PHASE ${steps.length + 1}`, title: 'Final Form', desc: `Maintain and refine. You now carry the physique of ${char.name}.` });
+  steps.push({
+    phase: `PHASE ${steps.length + 1}`,
+    title: 'Final Form — Maintain & Refine',
+    desc: `You've built the foundation of ${char.name}'s physique. Now it's about consistency, progressive overload, and locking in the diet. The final form isn't a destination — it's a standard you hold.`
+  });
 
   state.physiqueRoadmap = steps;
   saveState();
@@ -1327,7 +1425,7 @@ function incrementQuest(idx, amount = 1) {
   if (!state.questProgress) state.questProgress = {};
   state.questProgress[idx] = (state.questProgress[idx] || 0) + amount;
   saveState();
-  showToast(`+${amount} reps logged`);
+  renderQuestTab();
 }
 
 // ===========================
