@@ -1294,6 +1294,11 @@ function renderHeader() {
   document.getElementById('header-name').textContent = state.hunterName;
   document.getElementById('streak-count').textContent = state.streak;
   document.getElementById('gold-count').textContent = state.gold || 0;
+  const xpIn = xpInCurrentRank();
+  const xpNeeded = xpNeededForNextRank();
+  const pct = Math.min(100, Math.floor((xpIn / xpNeeded) * 100));
+  document.getElementById('header-xp-bar').style.width = pct + '%';
+  document.getElementById('header-xp-label').textContent = `${xpIn.toLocaleString()} / ${xpNeeded.toLocaleString()} XP`;
 }
 
 function renderDashboard() {
@@ -1889,6 +1894,8 @@ document.getElementById('complete-quest-btn').addEventListener('click', () => {
   state.questCompletedToday = true;
   state.lastQuestDate = todayStr();
   state.totalQuests = (state.totalQuests || 0) + 1;
+  // Mark all exercises as checked so cards render correctly
+  state.questChecks = quest.exercises.map((_, i) => i);
 
   // Streak
   state.streak = (state.streak || 0) + 1;
