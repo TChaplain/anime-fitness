@@ -2501,3 +2501,60 @@ function completeDungeonMission(gateId, missionIndex) {
   saveState();
   renderAll();
 }
+
+// ===========================
+// CHARACTER SWITCH
+// ===========================
+
+document.getElementById('switch-char-btn').addEventListener('click', () => {
+  document.getElementById('char-switch-modal').classList.remove('hidden');
+});
+
+document.getElementById('char-switch-cancel').addEventListener('click', () => {
+  document.getElementById('char-switch-modal').classList.add('hidden');
+});
+
+document.getElementById('char-switch-confirm').addEventListener('click', () => {
+  document.getElementById('char-switch-modal').classList.add('hidden');
+
+  // Preserve progression
+  const keep = {
+    hunterName: state.hunterName,
+    xp: state.xp,
+    level: state.level,
+    rankIndex: state.rankIndex,
+    streak: state.streak,
+    lastQuestDate: state.lastQuestDate,
+    gold: state.gold,
+    stats: state.stats,
+    achievements: state.achievements,
+    activity: state.activity,
+    workoutLog: state.workoutLog,
+    totalQuests: state.totalQuests,
+    totalLogEntries: state.totalLogEntries,
+  };
+
+  // Reset character-specific state
+  state = {
+    ...state,
+    ...keep,
+    characterId: '',
+    assessmentDone: false,
+    assessment: {},
+    tier: 'beginner',
+    physiqueRoadmap: [],
+    questCompletedToday: false,
+    questChecks: [],
+    questProgress: {},
+    dungeonProgress: {},
+    dungeonHistory: [],
+    dungeonLastReset: null,
+  };
+
+  saveState();
+
+  // Hide app, go back to character select
+  document.getElementById('app').classList.add('hidden');
+  document.getElementById('character-select').classList.remove('hidden');
+  renderCharacterSelect();
+});
