@@ -1900,9 +1900,9 @@ document.getElementById('complete-quest-btn').addEventListener('click', () => {
   state.stats.discipline  = Math.min(100, state.stats.discipline + 3);
 
 addXP(xpEarned, true);
-const goldEarned = Math.floor(xpEarned * 0.5);
-state.gold = (state.gold || 0) + goldEarned;  // ADD THIS LINE
-addActivity(quest.name, xpEarned);
+  const goldEarned = Math.floor(xpEarned * 0.5);
+  state.gold = (state.gold || 0) + goldEarned;
+  addActivity(quest.name, xpEarned);
 
   checkAchievements();
   saveState();
@@ -2306,7 +2306,7 @@ function renderDungeons() {
     const inProgress = completedMissions.length > 0 && !fullyCleared;
 
     const rankColors = {
-      'E': '#22c55e', 'D': '#3b82f6', 'B': '#a855f7', 'S': '#ef4444'
+      'F': '#94a3b8', 'E': '#22c55e', 'D': '#3b82f6', 'B': '#a855f7', 'S': '#ef4444'
     };
     const rankColor = rankColors[gate.rank] || '#94a3b8';
 
@@ -2408,7 +2408,7 @@ function renderDungeons() {
       historyList.innerHTML = '';
     } else {
       historyTitle.style.display = 'block';
-      const rankColors = { 'E': '#22c55e', 'D': '#3b82f6', 'B': '#a855f7', 'S': '#ef4444' };
+      const rankColors = { 'F': '#94a3b8', 'E': '#22c55e', 'D': '#3b82f6', 'B': '#a855f7', 'S': '#ef4444' };
       historyList.innerHTML = history.slice(0, 20).map(h => `
         <div class="history-item">
           <div class="history-item-left">
@@ -2425,17 +2425,19 @@ function renderDungeons() {
     }
   }
 }
+
 function enterGate(gateId) {
   if (!state.dungeonProgress) state.dungeonProgress = {};
-  if (!state.dungeonProgress[gateId]) {
-    state.dungeonProgress[gateId] = { missions: [], completed: false };
-  }
+
+  const dp = state.dungeonProgress[gateId];
+  if (dp && (dp.entered || dp.completed)) return; // already entered or cleared
+
+  state.dungeonProgress[gateId] = { missions: [], completed: false, entered: false };
 
   const gate = getDungeonGates().find(g => g.id === gateId);
-  const rankColors = { 'E': '#22c55e', 'D': '#3b82f6', 'B': '#a855f7', 'S': '#ef4444' };
-  const rankColor = rankColors[gate ? gate.rank : 'E'] || '#3b82f6';
+  const rankColors = { 'F': '#94a3b8', 'E': '#22c55e', 'D': '#3b82f6', 'B': '#a855f7', 'S': '#ef4444' };
+  const rankColor = rankColors[gate ? gate.rank : 'F'] || '#94a3b8';
 
-  // Animate
   const overlay = document.getElementById('gate-entry-overlay');
   document.getElementById('gate-entry-rank').textContent = gate ? `${gate.rank}-RANK GATE` : 'GATE';
   document.getElementById('gate-entry-name').textContent = gate ? gate.name : '';
@@ -2446,10 +2448,11 @@ function enterGate(gateId) {
   setTimeout(() => {
     overlay.classList.remove('gate-entering');
     overlay.classList.add('hidden');
+    state.dungeonProgress[gateId].entered = true;
     saveState();
     renderDungeons();
     showToast('Gate entered — complete all missions to clear it.');
-  }, 1800);
+  }, 2800);
 }
 
 function completeDungeonMission(gateId, missionIndex) {
