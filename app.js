@@ -2383,4 +2383,3 @@ function completeDungeonMission(gateId, missionIndex) {
   saveState();
   renderAll();
 }
-}
