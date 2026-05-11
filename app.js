@@ -456,12 +456,6 @@ function xpNeededForNextRank() {
   return currentRank().xpNeeded;
 }
 
-function getTodaysQuest() {
-  // deterministic quest per day
-  const day = new Date().getDate() + new Date().getMonth() * 31;
-  return QUEST_POOL[day % QUEST_POOL.length];
-}
-
 // ===========================
 // BOOT
 // ===========================
