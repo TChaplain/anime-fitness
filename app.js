@@ -2303,7 +2303,7 @@ function renderDungeons() {
     const dp = (state.dungeonProgress || {})[gate.id] || {};
     const completedMissions = dp.missions || [];
     const fullyCleared = dp.completed || false;
-    const inProgress = completedMissions.length > 0 && !fullyCleared;
+    const inProgress = (dp.entered || completedMissions.length > 0) && !fullyCleared;
 
     const rankColors = {
       'F': '#94a3b8', 'E': '#22c55e', 'D': '#3b82f6', 'B': '#a855f7', 'S': '#ef4444'
