@@ -2237,7 +2237,25 @@ function renderGold() {
 
 function getDungeonGates() {
   const charId = state.characterId || 'default';
-  return DUNGEON_RAIDS[charId] || DUNGEON_RAIDS['jinwoo'];
+  const char = CHARACTERS.find(c => c.id === charId);
+  const gates = DUNGEON_RAIDS[charId] || DUNGEON_RAIDS['jinwoo'];
+
+  const fRankGate = {
+    id: `${charId}_awakening`,
+    rank: 'F',
+    rankIndex: 0,
+    name: `${char ? char.name + ' — ' : ''}Awakening Trial`,
+    desc: char ? `Every legend starts somewhere. This is where ${char.name}'s journey begins. Prove you belong.` : 'Your first gate. Prove you belong.',
+    missions: [
+      { name: 'Awakening Push-ups', desc: 'The first test of the system', target: '3 × 10 reps' },
+      { name: 'Awakening Sit-ups', desc: 'Core strength from day one', target: '3 × 15 reps' },
+      { name: 'First Gate Run', desc: 'Every hunter starts with a run', target: '2 km run' },
+    ],
+    xpReward: 150,
+    goldReward: 75,
+  };
+
+  return [fRankGate, ...gates];
 }
 
 function renderDungeons() {
