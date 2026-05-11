@@ -2432,7 +2432,7 @@ function enterGate(gateId) {
   const dp = state.dungeonProgress[gateId];
   if (dp && (dp.entered || dp.completed)) return; // already entered or cleared
 
-  state.dungeonProgress[gateId] = { missions: [], completed: false, entered: false };
+  state.dungeonProgress[gateId] = { missions: [], completed: false, entered: true };
 
   const gate = getDungeonGates().find(g => g.id === gateId);
   const rankColors = { 'F': '#94a3b8', 'E': '#22c55e', 'D': '#3b82f6', 'B': '#a855f7', 'S': '#ef4444' };
@@ -2448,7 +2448,6 @@ function enterGate(gateId) {
   setTimeout(() => {
     overlay.classList.remove('gate-entering');
     overlay.classList.add('hidden');
-    state.dungeonProgress[gateId].entered = true;
     saveState();
     renderDungeons();
     showToast('Gate entered — complete all missions to clear it.');
