@@ -1156,6 +1156,7 @@ let state = {
   tier: 'beginner',
   physiqueRoadmap: [],
   questProgress: {},
+  dungeonProgress: {},  // { gateId: { missions: [], completed: false } }
 };
 
 // ===========================
@@ -1272,6 +1273,7 @@ function renderAll() {
   renderHeader();
   renderDashboard();
   renderQuestTab();
+  renderDungeons();
   renderProfile();
   renderLog();
 }
@@ -2215,4 +2217,160 @@ function bossStrike(isHeavy) {
 
 function renderGold() {
   document.getElementById('gold-count').textContent = state.gold || 0;
+}
+
+// ===========================
+// DUNGEON RAIDS
+// ===========================
+
+function getDungeonGates() {
+  const charId = state.characterId || 'default';
+  return DUNGEON_RAIDS[charId] || DUNGEON_RAIDS['jinwoo'];
+}
+
+function renderDungeons() {
+  const list = document.getElementById('dungeon-gate-list');
+  if (!list) return;
+
+  const gates = getDungeonGates();
+  const playerRankIndex = state.rankIndex;
+
+  list.innerHTML = gates.map(gate => {
+    const locked = gate.rankIndex > playerRankIndex;
+    const dp = (state.dungeonProgress || {})[gate.id] || {};
+    const completedMissions = dp.missions || [];
+    const fullyCleared = dp.completed || false;
+    const inProgress = completedMissions.length > 0 && !fullyCleared;
+
+    const rankColors = {
+      'E': '#22c55e', 'D': '#3b82f6', 'B': '#a855f7', 'S': '#ef4444'
+    };
+    const rankColor = rankColors[gate.rank] || '#94a3b8';
+
+    if (locked) {
+      return `
+        <div class="gate-card locked">
+          <div class="gate-lock-overlay">
+            <div class="gate-lock-icon">🔒</div>
+            <div class="gate-lock-text">REACH RANK ${gate.rank} TO UNLOCK</div>
+          </div>
+          <div class="gate-card-inner blurred">
+            <div class="gate-rank-tag" style="color:${rankColor};border-color:${rankColor}30">${gate.rank}-RANK GATE</div>
+            <div class="gate-name">${gate.name}</div>
+            <div class="gate-desc">${gate.desc}</div>
+          </div>
+        </div>
+      `;
+    }
+
+    if (fullyCleared) {
+      return `
+        <div class="gate-card cleared">
+          <div class="gate-card-inner">
+            <div class="gate-rank-tag" style="color:${rankColor};border-color:${rankColor}30">${gate.rank}-RANK GATE</div>
+            <div class="gate-name">${gate.name}</div>
+            <div class="gate-cleared-badge">⚔️ GATE CLEARED</div>
+            <div class="gate-rewards">
+              <span class="gate-xp">+${gate.xpReward} XP</span>
+              <span class="gate-gold">+${gate.goldReward}G</span>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    if (inProgress) {
+      return `
+        <div class="gate-card active" id="gate-active-${gate.id}">
+          <div class="gate-card-inner">
+            <div class="gate-rank-tag" style="color:${rankColor};border-color:${rankColor}30">${gate.rank}-RANK GATE</div>
+            <div class="gate-name">${gate.name}</div>
+            <div class="gate-progress-label">MISSIONS: ${completedMissions.length} / ${gate.missions.length}</div>
+            <div class="gate-mission-list">
+              ${gate.missions.map((m, i) => {
+                const done = completedMissions.includes(i);
+                return `
+                  <div class="gate-mission ${done ? 'mission-done' : ''}">
+                    <div class="gate-mission-left">
+                      <div class="gate-mission-name">${m.name}</div>
+                      <div class="gate-mission-desc">${m.desc}</div>
+                      <div class="gate-mission-target">${m.target}</div>
+                    </div>
+                    <div class="gate-mission-right">
+                      ${done
+                        ? `<span class="mission-done-tag">✓</span>`
+                        : `<button class="mission-complete-btn" onclick="completeDungeonMission('${gate.id}', ${i})">DONE</button>`
+                      }
+                    </div>
+                  </div>
+                `;
+              }).join('')}
+            </div>
+            <div class="gate-rewards">
+              <span class="gate-xp">+${gate.xpReward} XP</span>
+              <span class="gate-gold">+${gate.goldReward}G</span>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    // Default: available, not started
+    return `
+      <div class="gate-card">
+        <div class="gate-card-inner">
+          <div class="gate-rank-tag" style="color:${rankColor};border-color:${rankColor}30">${gate.rank}-RANK GATE</div>
+          <div class="gate-name">${gate.name}</div>
+          <div class="gate-desc">${gate.desc}</div>
+          <div class="gate-meta">
+            <span class="gate-missions-count">${gate.missions.length} MISSIONS</span>
+            <div class="gate-rewards">
+              <span class="gate-xp">+${gate.xpReward} XP</span>
+              <span class="gate-gold">+${gate.goldReward}G</span>
+            </div>
+          </div>
+          <button class="enter-gate-btn" onclick="enterGate('${gate.id}')">ENTER GATE →</button>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+function enterGate(gateId) {
+  if (!state.dungeonProgress) state.dungeonProgress = {};
+  if (!state.dungeonProgress[gateId]) {
+    state.dungeonProgress[gateId] = { missions: [], completed: false };
+  }
+  saveState();
+  renderDungeons();
+  showToast('Gate entered — complete all missions to clear it.');
+}
+
+function completeDungeonMission(gateId, missionIndex) {
+  if (!state.dungeonProgress) state.dungeonProgress = {};
+  if (!state.dungeonProgress[gateId]) {
+    state.dungeonProgress[gateId] = { missions: [], completed: false };
+  }
+
+  const dp = state.dungeonProgress[gateId];
+  if (dp.missions.includes(missionIndex)) return;
+
+  dp.missions.push(missionIndex);
+
+  const gate = getDungeonGates().find(g => g.id === gateId);
+  if (!gate) return;
+
+  if (dp.missions.length >= gate.missions.length) {
+    dp.completed = true;
+    state.gold = (state.gold || 0) + gate.goldReward;
+    addXP(gate.xpReward);
+    addActivity(`⚔️ Gate Cleared: ${gate.name}`, gate.xpReward);
+    checkAchievements();
+    showToast(`Gate cleared! +${gate.xpReward} XP +${gate.goldReward}G`);
+  } else {
+    showToast(`Mission complete — ${gate.missions.length - dp.missions.length} remaining.`);
+  }
+
+  saveState();
+  renderAll();
 }

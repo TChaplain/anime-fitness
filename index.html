@@ -87,6 +87,7 @@
       <button class="tab-btn active" data-tab="dashboard">OVERVIEW</button>
       <button class="tab-btn" data-tab="quests">DAILY QUEST</button>
       <button class="tab-btn" data-tab="log">WORKOUT LOG</button>
+      <button class="tab-btn" data-tab="dungeons">DUNGEONS</button>
       <button class="tab-btn" data-tab="profile">PROFILE</button>
     </nav>
 
@@ -316,7 +317,7 @@
 
       <div class="section-title">PHYSIQUE ROADMAP</div>
       <div id="physique-roadmap" class="physique-roadmap"></div>
-      
+
       <div class="section-title">RANK PROGRESSION</div>
       <div class="rank-road" id="rank-road">
         <!-- filled by JS -->
@@ -327,6 +328,22 @@
     </section>
 
   </div>
+
+  <!-- ===================== DUNGEON RAIDS TAB ===================== -->
+    <section id="tab-dungeons" class="tab-content hidden">
+
+      <div class="dungeon-header">
+        <div class="dungeon-title">DUNGEON RAIDS</div>
+        <div class="dungeon-sub">Enter gates to earn rewards and level up</div>
+      </div>
+
+      <div class="dungeon-warning">
+        ⚠ Once you enter a dungeon, you cannot leave until all missions are complete
+      </div>
+
+      <div id="dungeon-gate-list"></div>
+
+    </section>
 
   <!-- TIMER MODAL -->
   <div id="timer-modal" class="hidden">
