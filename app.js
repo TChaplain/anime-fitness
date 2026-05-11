@@ -2229,7 +2229,6 @@ function getDungeonGates() {
 }
 
 function renderDungeons() {
-  function renderDungeons() {
   const list = document.getElementById('dungeon-gate-list');
   if (!list) return;
 
