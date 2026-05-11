@@ -371,10 +371,14 @@ const CHARACTER_QUESTS = {
 };
 
 function getTodaysQuest() {
-  const charId = state.characterId || 'default';
-  const pool = CHARACTER_QUESTS[charId] || CHARACTER_QUESTS.default;
-  const day = new Date().getDate() + new Date().getMonth() * 31;
-  return pool[day % pool.length];
+  try {
+    const charId = (state && state.characterId) ? state.characterId : 'default';
+    const pool = CHARACTER_QUESTS[charId] || CHARACTER_QUESTS['default'];
+    const day = new Date().getDate() + new Date().getMonth() * 31;
+    return pool[day % pool.length];
+  } catch(e) {
+    return CHARACTER_QUESTS['default'][0];
+  }
 }
 
 const ACHIEVEMENTS = [
@@ -569,6 +573,7 @@ function renderDashboard() {
 
 function renderQuestTab() {
   const quest = getTodaysQuest();
+  if (!quest || !quest.exercises) return;
   const rank = currentRank();
 
   document.getElementById('quest-date').textContent = dateLabel();
