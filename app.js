@@ -581,16 +581,14 @@ function renderQuestTab() {
   document.getElementById('quest-rank-tag').textContent = `RANK ${rank.label}`;
   document.getElementById('quest-xp-reward').textContent = `+${rank.questXP} XP`;
 
-  // Streak banner — always show
   document.getElementById('streak-banner').classList.remove('hidden');
 
   const currentFilter = window._questFilter || 'all';
   const allExercises = quest.exercises;
   const doneCount = state.questChecks.length;
-  const activeCount = allExercises.length - doneCount;
 
   document.getElementById('filter-count-all').textContent = allExercises.length;
-  document.getElementById('filter-count-active').textContent = activeCount;
+  document.getElementById('filter-count-active').textContent = allExercises.length - doneCount;
   document.getElementById('filter-count-done').textContent = doneCount;
 
   const box = document.getElementById('quest-box');
@@ -610,7 +608,6 @@ function renderQuestTab() {
             <div class="quest-card-name">${ex.name}</div>
             <div class="quest-card-desc">${ex.target}</div>
           </div>
-          <div class="quest-card-progress-label">${state.questChecks.filter(x => x === i).length > 0 ? '✓' : '0 / ' + extractTarget(ex.target)}</div>
         </div>
         <div class="quest-card-bottom">
           <div class="quest-card-rewards">
@@ -621,7 +618,6 @@ function renderQuestTab() {
             ${done
               ? `<span class="quest-card-done-tag">✓ DONE</span>`
               : `${isTimed ? `<button class="qc-btn timer-btn-card" onclick="openTimer('${ex.name}', ${timerSecs})">⏱ TIMER</button>` : ''}
-                 <button class="qc-btn" onclick="incrementQuest(${i})">+1</button>
                  <button class="qc-btn check" onclick="toggleQuestCheck(${i})">✓</button>`
             }
           </div>
