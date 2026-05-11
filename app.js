@@ -415,6 +415,13 @@ let state = {
   achievements: [],
   totalQuests: 0,
   totalLogEntries: 0,
+  gold: 0,
+  characterId: '',
+  assessmentDone: false,
+  assessment: {},
+  tier: 'beginner',
+  physiqueRoadmap: [],
+  questProgress: {},
 };
 
 // ===========================
@@ -495,8 +502,17 @@ document.getElementById('begin-btn').addEventListener('click', () => {
 
 function launchApp() {
   checkDayRollover();
-  document.getElementById('app').classList.remove('hidden');
   loadCharacterTheme();
+  if (!state.assessmentDone) {
+    document.getElementById('character-select').classList.remove('hidden');
+    renderCharacterSelect();
+    return;
+  }
+  // Repair missing roadmap for existing saves
+  if (state.assessmentDone && state.physiqueRoadmap.length === 0) {
+    buildPhysiqueRoadmap();
+  }
+  document.getElementById('app').classList.remove('hidden');
   renderAll();
 }
 
@@ -699,7 +715,7 @@ function renderProfile() {
 
   // Physique Roadmap
   const roadmapEl = document.getElementById('physique-roadmap');
-  if (roadmapEl && state.physiqueRoadmap) {
+  if (roadmapEl && state.physiqueRoadmap && state.physiqueRoadmap.length > 0) {
     roadmapEl.innerHTML = state.physiqueRoadmap.map((s, i) => `
       <div class="phys-step">
         <div class="phys-phase">${s.phase}</div>
