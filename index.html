@@ -92,6 +92,7 @@
       <button class="tab-btn" data-tab="quests">DAILY QUEST</button>
       <button class="tab-btn" data-tab="log">WORKOUT LOG</button>
       <button class="tab-btn" data-tab="dungeons">DUNGEONS</button>
+      <button class="tab-btn" data-tab="shop">SHOP</button>
       <button class="tab-btn" data-tab="profile">PROFILE</button>
     </nav>
 
@@ -329,6 +330,21 @@
 
       <button class="switch-char-btn" id="switch-char-btn">⚔ SWITCH CHARACTER PATH</button>
       <button class="reset-btn" id="reset-btn">⚠ RESET HUNTER DATA</button>
+
+    </section>
+
+    <!-- ===================== SHOP TAB ===================== -->
+    <section id="tab-shop" class="tab-content hidden">
+
+      <div class="shop-header" id="shop-header"></div>
+
+      <div class="shop-category-tabs">
+        <button class="shop-tab active" data-shop="boosts" onclick="setShopTab('boosts')">⚡ BOOSTS</button>
+        <button class="shop-tab" data-shop="items" onclick="setShopTab('items')">🎖 CHARACTER</button>
+        <button class="shop-tab" data-shop="consumables" onclick="setShopTab('consumables')">🧪 CONSUMABLES</button>
+      </div>
+
+      <div id="shop-item-list"></div>
 
     </section>
 

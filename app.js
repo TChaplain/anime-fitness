@@ -1035,12 +1035,172 @@ const DUNGEON_RAIDS = {
   ],
 };
 
+// ===========================
+// SHOP DATA
+// ===========================
+
+const SHOP_BOOSTS = [
+  {
+    id: 'boost_xp',
+    name: 'XP AMPLIFIER',
+    desc: 'Next daily quest rewards 1.5× XP. Lasts 24 hours.',
+    icon: '⚡',
+    cost: 100,
+    type: 'boost',
+    boostKey: 'xp',
+  },
+  {
+    id: 'boost_gold',
+    name: 'GOLD MULTIPLIER',
+    desc: 'Next daily quest rewards 2× gold. Lasts 24 hours.',
+    icon: '💰',
+    cost: 75,
+    type: 'boost',
+    boostKey: 'gold',
+  },
+  {
+    id: 'boost_streak',
+    name: 'STREAK SHIELD',
+    desc: 'Protects your streak if you miss one day. Single use.',
+    icon: '🛡',
+    cost: 200,
+    type: 'boost',
+    boostKey: 'streak',
+  },
+];
+
+const SHOP_CONSUMABLES = [
+  {
+    id: 'consume_dungeon_reset',
+    name: 'GATE PASS',
+    desc: 'Resets all cleared dungeon gates so you can run them again today.',
+    icon: '🔑',
+    cost: 150,
+    type: 'consumable',
+  },
+  {
+    id: 'consume_quest_reroll',
+    name: 'QUEST REROLL',
+    desc: "Switches today's quest to your alternate quest.",
+    icon: '🎲',
+    cost: 75,
+    type: 'consumable',
+  },
+  {
+    id: 'consume_stat_str',
+    name: 'STRENGTH SHARD',
+    desc: 'Permanently increases Strength by +5.',
+    icon: '⚔️',
+    cost: 300,
+    type: 'consumable',
+    stat: 'strength',
+  },
+  {
+    id: 'consume_stat_agi',
+    name: 'AGILITY SHARD',
+    desc: 'Permanently increases Agility by +5.',
+    icon: '🏃',
+    cost: 300,
+    type: 'consumable',
+    stat: 'agility',
+  },
+  {
+    id: 'consume_stat_end',
+    name: 'ENDURANCE SHARD',
+    desc: 'Permanently increases Endurance by +5.',
+    icon: '💠',
+    cost: 300,
+    type: 'consumable',
+    stat: 'endurance',
+  },
+  {
+    id: 'consume_stat_dis',
+    name: 'DISCIPLINE SHARD',
+    desc: 'Permanently increases Discipline by +5.',
+    icon: '🧠',
+    cost: 300,
+    type: 'consumable',
+    stat: 'discipline',
+  },
+];
+
+const SHOP_CHARACTER_ITEMS = {
+  jinwoo: [
+    { id: 'jinwoo_crest', name: "SHADOW MONARCH'S CREST", desc: 'The symbol of Ashborn. Displayed on your profile.', icon: '👑', cost: 500 },
+    { id: 'jinwoo_title', name: 'SYSTEM PLAYER TITLE', desc: 'Equip the title: "Player of the System"', icon: '🌑', cost: 300 },
+    { id: 'jinwoo_knight', name: 'KNIGHT COMMANDER BADGE', desc: 'Igris knelt before you. Now carry his mark.', icon: '⚔️', cost: 400 },
+  ],
+  yuji: [
+    { id: 'yuji_fist', name: 'DIVERGENT FIST SEAL', desc: 'The mark of the boy who contained a king.', icon: '👊', cost: 500 },
+    { id: 'yuji_sukuna', name: "SUKUNA'S VESSEL TITLE", desc: 'Equip the title: "King\'s Vessel"', icon: '🔱', cost: 300 },
+    { id: 'yuji_black_flash', name: 'BLACK FLASH BADGE', desc: 'Only those who have hit Black Flash wear this.', icon: '💥', cost: 400 },
+  ],
+  goku: [
+    { id: 'goku_symbol', name: 'CAPSULE CORP BADGE', desc: 'Bulma\'s family crest. A true ally.', icon: '🔵', cost: 400 },
+    { id: 'goku_title', name: 'SUPER SAIYAN TITLE', desc: 'Equip the title: "Super Saiyan"', icon: '⚡', cost: 300 },
+    { id: 'goku_ui', name: 'ULTRA INSTINCT CREST', desc: 'The mark of a fighter who moves without thought.', icon: '🤍', cost: 500 },
+  ],
+  baki: [
+    { id: 'baki_belt', name: 'UNDERGROUND CHAMPION BELT', desc: 'Won in the depths of the Tokyo Dome.', icon: '🏆', cost: 500 },
+    { id: 'baki_title', name: 'SON OF OGRE TITLE', desc: 'Equip the title: "Son of the Ogre"', icon: '💀', cost: 300 },
+    { id: 'baki_seal', name: 'DEMON BACK SEAL', desc: 'The mark appears on those who truly built it.', icon: '👹', cost: 400 },
+  ],
+  toji: [
+    { id: 'toji_chain', name: 'INVERTED SPEAR BADGE', desc: 'The weapon that could nullify any technique.', icon: '🗡️', cost: 400 },
+    { id: 'toji_title', name: 'SORCERER KILLER TITLE', desc: 'Equip the title: "Sorcerer Killer"', icon: '☠️', cost: 300 },
+    { id: 'toji_crest', name: 'HEAVENLY RESTRICTION CREST', desc: 'Zero cursed energy. Pure physical perfection.', icon: '🟢', cost: 500 },
+  ],
+  asta: [
+    { id: 'asta_grimoire', name: 'BLACK CLOVER BADGE', desc: 'A five-leaf grimoire. The devil\'s mark.', icon: '🍀', cost: 400 },
+    { id: 'asta_title', name: 'MAGIC EMPEROR TITLE', desc: 'Equip the title: "Future Magic Emperor"', icon: '⚔️', cost: 300 },
+    { id: 'asta_devil', name: 'LIEBE UNION CREST', desc: 'United with your devil. Nothing is impossible.', icon: '😈', cost: 500 },
+  ],
+  saitama: [
+    { id: 'saitama_cape', name: 'HERO ASSOCIATION BADGE', desc: 'C-Class rank 342. It\'s a start.', icon: '🦸', cost: 400 },
+    { id: 'saitama_title', name: 'CAPED BALDY TITLE', desc: 'Equip the title: "Caped Baldy"', icon: '👊', cost: 300 },
+    { id: 'saitama_serious', name: 'SERIOUS SERIES CREST', desc: 'For when you actually try.', icon: '😐', cost: 500 },
+  ],
+  escanor: [
+    { id: 'escanor_rhitta', name: 'RHITTA BADGE', desc: 'The divine axe that only he could lift.', icon: '🪓', cost: 400 },
+    { id: 'escanor_title', name: 'THE ONE TITLE', desc: 'Equip the title: "The One"', icon: '☀️', cost: 300 },
+    { id: 'escanor_pride', name: "LION'S SIN CREST", desc: 'The mark of the Sin of Pride.', icon: '🦁', cost: 500 },
+  ],
+  garou: [
+    { id: 'garou_fist', name: 'WATER STREAM BADGE', desc: 'The martial style that evolved into something beyond.', icon: '💧', cost: 400 },
+    { id: 'garou_title', name: 'HERO HUNTER TITLE', desc: 'Equip the title: "Hero Hunter"', icon: '🐺', cost: 300 },
+    { id: 'garou_cosmic', name: 'COSMIC GAROU CREST', desc: 'The mark of God\'s chosen weapon.', icon: '🌌', cost: 500 },
+  ],
+  guts: [
+    { id: 'guts_sword', name: 'DRAGONSLAYER BADGE', desc: 'A sword too big to be called a sword.', icon: '🗡️', cost: 400 },
+    { id: 'guts_title', name: 'BLACK SWORDSMAN TITLE', desc: 'Equip the title: "Black Swordsman"', icon: '⚫', cost: 300 },
+    { id: 'guts_armor', name: 'BERSERKER ARMOR CREST', desc: 'Remove all limiters. Pay every price.', icon: '🔩', cost: 500 },
+  ],
+  maki: [
+    { id: 'maki_staff', name: 'PLAYFUL CLOUD BADGE', desc: 'A special grade cursed tool for a special grade body.', icon: '🏹', cost: 400 },
+    { id: 'maki_title', name: 'HEAVENLY RESTRICTION TITLE', desc: 'Equip the title: "Heavenly Restriction"', icon: '⚡', cost: 300 },
+    { id: 'maki_crest', name: 'ZENIN SLAYER CREST', desc: 'She walked in alone. She walked out alone.', icon: '🟩', cost: 500 },
+  ],
+  yoruichi: [
+    { id: 'yoruichi_flash', name: 'FLASH STEP BADGE', desc: 'Faster than the eye can follow.', icon: '⚡', cost: 400 },
+    { id: 'yoruichi_title', name: 'GODDESS OF FLASH TITLE', desc: 'Equip the title: "Goddess of Flash"', icon: '💜', cost: 300 },
+    { id: 'yoruichi_shunko', name: 'SHUNKO CREST', desc: 'Kido and Hakuda. The ultimate combination.', icon: '🌩️', cost: 500 },
+  ],
+  kale: [
+    { id: 'kale_power', name: 'LEGENDARY SAIYAN BADGE', desc: 'Once in a generation. That generation is now.', icon: '💚', cost: 400 },
+    { id: 'kale_title', name: 'BERSERKER TITLE', desc: 'Equip the title: "Legendary Berserker"', icon: '🌀', cost: 300 },
+    { id: 'kale_crest', name: 'UNIVERSE 6 CREST', desc: 'The strongest female Saiyan in any universe.', icon: '🌍', cost: 500 },
+  ],
+};
+
 function getTodaysQuest() {
   try {
     const charId = (state && state.characterId) ? state.characterId : 'default';
     const pool = CHARACTER_QUESTS[charId] || CHARACTER_QUESTS['default'];
     const day = new Date().getDate() + new Date().getMonth() * 31;
-    const quest = pool[day % pool.length];
+    const questIdx = (state.questRerollIdx !== undefined && state.questRerollIdx !== null)
+      ? state.questRerollIdx
+      : day % pool.length;
+    const quest = pool[questIdx];
     const tier = (state && state.tier) ? state.tier : 'intermediate';
 
     // Deep clone so we never mutate the original data
@@ -1159,6 +1319,9 @@ let state = {
   dungeonProgress: {},
   dungeonHistory: [],
   dungeonLastReset: null,
+  shopPurchases: [],
+  activeBoosts: {},
+  equippedTitle: '',
 };
 
 // ===========================
@@ -1257,8 +1420,13 @@ function checkDayRollover() {
   const today = todayStr();
   if (state.lastQuestDate && state.lastQuestDate !== today) {
     if (!state.questCompletedToday) {
-      addXP(-50, false);
-      addActivity('❌ Missed daily quest — 50 XP penalty');
+      if (state.activeBoosts && state.activeBoosts.streak && state.activeBoosts.streak > 0) {
+        state.activeBoosts.streak = 0;
+        showToast('🛡 Streak Shield activated — streak protected.');
+      } else {
+        addXP(-50, false);
+        addActivity('❌ Missed daily quest — 50 XP penalty');
+      }
     }
     state.questCompletedToday = false;
     state.questChecks = [];
@@ -1286,6 +1454,7 @@ function renderAll() {
   renderDashboard();
   renderQuestTab();
   renderDungeons();
+  renderShop();
   renderProfile();
   renderLog();
 }
@@ -1427,7 +1596,12 @@ function renderProfile() {
 
   document.getElementById('avatar-initial').textContent = initial;
   document.getElementById('profile-hunter-name').textContent = state.hunterName;
-  document.getElementById('profile-rank-full').textContent = `RANK ${rank.label} — ${rank.name.toUpperCase()}`;
+  const titleItem = state.equippedTitle
+    ? [...Object.values(SHOP_CHARACTER_ITEMS).flat()].find(i => i.id === state.equippedTitle)
+    : null;
+  document.getElementById('profile-rank-full').textContent = titleItem
+    ? `"${titleItem.name.replace(' TITLE', '')}" — RANK ${rank.label}`
+    : `RANK ${rank.label} — ${rank.name.toUpperCase()}`;
   document.getElementById('profile-level').textContent = state.level;
 
   // Stat bars (max 100)
@@ -1907,7 +2081,12 @@ document.getElementById('complete-quest-btn').addEventListener('click', () => {
   state.stats.discipline  = Math.min(100, state.stats.discipline + 3);
 
 addXP(xpEarned, true);
-  const goldEarned = Math.floor(xpEarned * 0.5);
+  let goldEarned = Math.floor(xpEarned * 0.5);
+  if (state.activeBoosts && state.activeBoosts.gold && state.activeBoosts.gold > Date.now()) {
+    goldEarned = Math.floor(goldEarned * 2);
+    state.activeBoosts.gold = 0;
+    showToast('💰 Gold Boost applied!');
+  }
   state.gold = (state.gold || 0) + goldEarned;
   addActivity(quest.name, xpEarned);
 
@@ -2558,3 +2737,179 @@ document.getElementById('char-switch-confirm').addEventListener('click', () => {
   document.getElementById('character-select').classList.remove('hidden');
   renderCharacterSelect();
 });
+
+// ===========================
+// SHOP
+// ===========================
+
+window._shopTab = 'boosts';
+
+function setShopTab(tab) {
+  window._shopTab = tab;
+  document.querySelectorAll('.shop-tab').forEach(t => {
+    t.classList.toggle('active', t.dataset.shop === tab);
+  });
+  renderShopItems();
+}
+
+function renderShop() {
+  const header = document.getElementById('shop-header');
+  if (!header) return;
+
+  const char = CHARACTERS.find(c => c.id === state.characterId);
+  const rank = currentRank();
+  if (char) {
+    header.innerHTML = `
+      <div class="shop-portrait-card" style="border-color:${char.colors.primary}40;background:linear-gradient(135deg,${char.colors.accent} 0%,var(--panel) 100%)">
+        <div class="shop-portrait-emoji">${char.emoji}</div>
+        <div class="shop-portrait-info">
+          <div class="shop-portrait-name" style="color:${char.colors.primary}">${char.name} SHOP</div>
+          <div class="shop-portrait-tag">${char.tag}</div>
+        </div>
+        <div class="shop-gold-display">💰 ${state.gold || 0}G</div>
+      </div>
+    `;
+  }
+
+  renderShopItems();
+}
+
+function renderShopItems() {
+  const list = document.getElementById('shop-item-list');
+  if (!list) return;
+
+  const tab = window._shopTab || 'boosts';
+  const charId = state.characterId || 'jinwoo';
+  const purchases = state.shopPurchases || [];
+  const boosts = state.activeBoosts || {};
+  const now = Date.now();
+
+  let items = [];
+  if (tab === 'boosts') items = SHOP_BOOSTS;
+  else if (tab === 'consumables') items = SHOP_CONSUMABLES;
+  else if (tab === 'items') items = SHOP_CHARACTER_ITEMS[charId] || [];
+
+  list.innerHTML = items.map(item => {
+    const owned = purchases.includes(item.id);
+    const isTitle = item.id && item.id.includes('_title');
+    const equipped = state.equippedTitle === item.id;
+
+    // Boost active state
+    let boostActive = false;
+    let boostLabel = '';
+    if (item.boostKey) {
+      const expiry = boosts[item.boostKey];
+      if (expiry && expiry > now) {
+        boostActive = true;
+        const minsLeft = Math.ceil((expiry - now) / 60000);
+        boostLabel = `ACTIVE — ${minsLeft}m left`;
+      }
+    }
+
+    const canAfford = (state.gold || 0) >= item.cost;
+
+    let actionBtn = '';
+    if (tab === 'items') {
+      if (owned) {
+        if (isTitle) {
+          actionBtn = equipped
+            ? `<button class="shop-btn equipped" onclick="unequipTitle()">✓ EQUIPPED</button>`
+            : `<button class="shop-btn owned" onclick="equipTitle('${item.id}')">EQUIP</button>`;
+        } else {
+          actionBtn = `<button class="shop-btn owned" disabled>OWNED</button>`;
+        }
+      } else {
+        actionBtn = `<button class="shop-btn ${canAfford ? '' : 'locked'}" onclick="buyItem('${item.id}', 'items')" ${canAfford ? '' : 'disabled'}>BUY — ${item.cost}G</button>`;
+      }
+    } else if (tab === 'boosts') {
+      if (boostActive) {
+        actionBtn = `<button class="shop-btn active-boost" disabled>${boostLabel}</button>`;
+      } else {
+        actionBtn = `<button class="shop-btn ${canAfford ? '' : 'locked'}" onclick="buyItem('${item.id}', 'boosts')" ${canAfford ? '' : 'disabled'}>BUY — ${item.cost}G</button>`;
+      }
+    } else {
+      actionBtn = `<button class="shop-btn ${canAfford ? '' : 'locked'}" onclick="buyItem('${item.id}', 'consumables')" ${canAfford ? '' : 'disabled'}>USE — ${item.cost}G</button>`;
+    }
+
+    return `
+      <div class="shop-item-card ${owned && tab === 'items' ? 'owned' : ''} ${boostActive ? 'boost-active' : ''}">
+        <div class="shop-item-icon">${item.icon}</div>
+        <div class="shop-item-info">
+          <div class="shop-item-name">${item.name}</div>
+          <div class="shop-item-desc">${item.desc}</div>
+        </div>
+        <div class="shop-item-action">${actionBtn}</div>
+      </div>
+    `;
+  }).join('');
+}
+
+function buyItem(itemId, tab) {
+  if (!state.shopPurchases) state.shopPurchases = [];
+  if (!state.activeBoosts) state.activeBoosts = {};
+
+  const allItems = [...SHOP_BOOSTS, ...SHOP_CONSUMABLES, ...Object.values(SHOP_CHARACTER_ITEMS).flat()];
+  const item = allItems.find(i => i.id === itemId);
+  if (!item) return;
+
+  if ((state.gold || 0) < item.cost) {
+    showToast('Not enough gold.');
+    return;
+  }
+
+  state.gold -= item.cost;
+
+  if (tab === 'items') {
+    state.shopPurchases.push(itemId);
+    showToast(`Purchased: ${item.name}`);
+  } else if (tab === 'boosts') {
+    const expiry = Date.now() + 24 * 60 * 60 * 1000;
+    state.activeBoosts[item.boostKey] = expiry;
+    showToast(`${item.name} activated — 24 hours.`);
+  } else if (tab === 'consumables') {
+    applyConsumable(item);
+  }
+
+  saveState();
+  renderAll();
+}
+
+function applyConsumable(item) {
+  if (item.id === 'consume_dungeon_reset') {
+    if (state.dungeonProgress) {
+      Object.keys(state.dungeonProgress).forEach(gateId => {
+        state.dungeonProgress[gateId] = { missions: [], completed: false, entered: false };
+      });
+    }
+    state.dungeonLastReset = null;
+    showToast('All dungeon gates reset — run them again today.');
+  } else if (item.id === 'consume_quest_reroll') {
+    const charId = state.characterId || 'default';
+    const pool = CHARACTER_QUESTS[charId] || CHARACTER_QUESTS['default'];
+    const day = new Date().getDate() + new Date().getMonth() * 31;
+    const currentIdx = day % pool.length;
+    const newIdx = (currentIdx + 1) % pool.length;
+    state.questRerollIdx = newIdx;
+    state.questCompletedToday = false;
+    state.questChecks = [];
+    state.questProgress = {};
+    showToast('Quest rerolled — new mission assigned.');
+  } else if (item.stat) {
+    state.stats[item.stat] = Math.min(100, (state.stats[item.stat] || 0) + 5);
+    showToast(`+5 ${item.stat.toUpperCase()} permanently added.`);
+  }
+}
+
+function equipTitle(itemId) {
+  state.equippedTitle = itemId;
+  saveState();
+  renderAll();
+  showToast('Title equipped.');
+}
+
+function unequipTitle() {
+  state.equippedTitle = '';
+  saveState();
+  renderAll();
+  showToast('Title unequipped.');
+}
