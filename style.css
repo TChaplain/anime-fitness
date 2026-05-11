@@ -1481,3 +1481,100 @@ header {
 .rank-a  { --rank-color: #f59e0b; }
 .rank-s  { --rank-color: #ef4444; }
 .rank-nat { --rank-color: #f97316; }
+
+/* ===========================
+   CHARACTER SELECT
+=========================== */
+#character-select {
+  min-height: 100vh;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 2rem 1rem 4rem;
+  background: var(--bg);
+}
+
+.cs-wrap {
+  width: 100%;
+  max-width: 480px;
+}
+
+.cs-title {
+  font-family: var(--head);
+  font-size: 1.6rem;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  color: var(--text);
+  text-align: center;
+  margin-bottom: 0.4rem;
+  margin-top: 2rem;
+}
+
+.cs-sub {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  color: var(--text3);
+  letter-spacing: 0.12em;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.cs-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+}
+
+.cs-card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.1rem 0.85rem;
+  cursor: pointer;
+  transition: border-color 0.2s, transform 0.15s, box-shadow 0.2s;
+  text-align: center;
+}
+
+.cs-card:hover {
+  border-color: var(--blue);
+  transform: translateY(-2px);
+  box-shadow: 0 0 16px var(--blue-glow);
+}
+
+.cs-card:active { transform: scale(0.97); }
+
+.cs-emoji {
+  font-size: 1.8rem;
+  margin-bottom: 0.4rem;
+}
+
+.cs-name {
+  font-family: var(--head);
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: 0.06em;
+  margin-bottom: 0.15rem;
+}
+
+.cs-series {
+  font-family: var(--mono);
+  font-size: 0.55rem;
+  color: var(--text3);
+  letter-spacing: 0.1em;
+  margin-bottom: 0.4rem;
+}
+
+.cs-tag {
+  font-family: var(--mono);
+  font-size: 0.58rem;
+  color: var(--blue);
+  letter-spacing: 0.1em;
+  margin-bottom: 0.3rem;
+}
+
+.cs-physique {
+  font-family: var(--body);
+  font-size: 0.75rem;
+  color: var(--text2);
+}

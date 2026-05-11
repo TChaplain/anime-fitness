@@ -3,6 +3,165 @@
    Full RPG Fitness App Logic
 =========================== */
 
+const CHARACTERS = [
+  {
+    id: 'jinwoo',
+    name: 'SUNG JINWOO',
+    series: 'Solo Leveling',
+    emoji: '🌑',
+    tag: 'SHADOW MONARCH',
+    physique: 'Lean & Muscular',
+    goal: 'Cut fat, build lean calisthenics muscle, high endurance',
+    priority: ['Core', 'Endurance', 'Calisthenics Strength'],
+    trainingStyle: 'Calisthenics + Running',
+    colors: { primary: '#7c3aed', secondary: '#a855f7', accent: '#1e1b4b', glow: '#7c3aed60' }
+  },
+  {
+    id: 'yuji',
+    name: 'YUJI ITADORI',
+    series: 'Jujutsu Kaisen',
+    emoji: '👊',
+    tag: 'DIVERGENT FIST',
+    physique: 'Dense Athletic',
+    goal: 'Build functional mass, explosive power, thick legs and back',
+    priority: ['Explosive Power', 'Full Body Strength', 'Conditioning'],
+    trainingStyle: 'Plyometrics + Compound Lifts',
+    colors: { primary: '#ec4899', secondary: '#f472b6', accent: '#1a0a1a', glow: '#ec489960' }
+  },
+  {
+    id: 'goku',
+    name: 'GOKU',
+    series: 'Dragon Ball Z',
+    emoji: '⚡',
+    tag: 'SUPER SAIYAN',
+    physique: 'Classic Muscular',
+    goal: 'Build shoulder and arm mass while staying lean, classic proportions',
+    priority: ['Muscle Mass', 'Shoulder Width', 'Leanness'],
+    trainingStyle: 'Heavy Compounds + Martial Arts',
+    colors: { primary: '#f59e0b', secondary: '#fbbf24', accent: '#1a1500', glow: '#f59e0b60' }
+  },
+  {
+    id: 'baki',
+    name: 'BAKI HANMA',
+    series: 'Baki',
+    emoji: '💀',
+    tag: 'UNDERGROUND KING',
+    physique: 'Extreme Shred',
+    goal: 'Maximum definition, zero body fat, visible striations and vascularity',
+    priority: ['Fat Loss', 'Core Definition', 'Vascularity'],
+    trainingStyle: 'Grappling + Old-School Iron',
+    colors: { primary: '#ef4444', secondary: '#f87171', accent: '#1a0000', glow: '#ef444460' }
+  },
+  {
+    id: 'toji',
+    name: 'TOJI FUSHIGURO',
+    series: 'Jujutsu Kaisen',
+    emoji: '🗡️',
+    tag: 'SORCERER KILLER',
+    physique: 'V-Taper Aesthetic',
+    goal: 'Maximum shoulder-to-waist ratio, broad back, chiseled core',
+    priority: ['Shoulder Width', 'Waist Reduction', 'Back Width'],
+    trainingStyle: 'MMA + Compound Lifting',
+    colors: { primary: '#22c55e', secondary: '#4ade80', accent: '#001a08', glow: '#22c55e60' }
+  },
+  {
+    id: 'asta',
+    name: 'ASTA',
+    series: 'Black Clover',
+    emoji: '⚔️',
+    tag: 'ANTI-MAGIC DEVIL',
+    physique: 'Compact Powerhouse',
+    goal: 'Max muscle on smaller frame, big arms and back, shredded abs',
+    priority: ['Arms', 'Back Width', 'Fat Loss'],
+    trainingStyle: 'High-Rep Calisthenics + Carries',
+    colors: { primary: '#dc2626', secondary: '#ef4444', accent: '#1a0000', glow: '#dc262660' }
+  },
+  {
+    id: 'saitama',
+    name: 'SAITAMA',
+    series: 'One Punch Man',
+    emoji: '👊',
+    tag: 'CAPED BALDY',
+    physique: 'Lean Athletic',
+    goal: 'Lose fat, build baseline fitness, visible abs, total body endurance',
+    priority: ['Fat Loss', 'Endurance', 'Core'],
+    trainingStyle: 'OPM Calisthenics Routine',
+    colors: { primary: '#eab308', secondary: '#facc15', accent: '#1a1200', glow: '#eab30860' }
+  },
+  {
+    id: 'escanor',
+    name: 'ESCANOR',
+    series: 'Seven Deadly Sins',
+    emoji: '☀️',
+    tag: 'THE ONE',
+    physique: 'Maximum Mass',
+    goal: 'Pure size and strength — traps, shoulders, chest. Bulk focused.',
+    priority: ['Trap Mass', 'Shoulder Size', 'Overall Bulk'],
+    trainingStyle: 'Heavy Barbell Compounds',
+    colors: { primary: '#f97316', secondary: '#fb923c', accent: '#1a0800', glow: '#f9731660' }
+  },
+  {
+    id: 'garou',
+    name: 'GAROU',
+    series: 'One Punch Man',
+    emoji: '🐺',
+    tag: 'HERO HUNTER',
+    physique: 'V-Taper Martial Artist',
+    goal: 'Wide 3D shoulders, winged lats, slim waist, athletic explosive legs',
+    priority: ['Shoulder Width', 'Lat Spread', 'Explosiveness'],
+    trainingStyle: 'Martial Arts + Explosive Calisthenics',
+    colors: { primary: '#94a3b8', secondary: '#cbd5e1', accent: '#0f1117', glow: '#94a3b860' }
+  },
+  {
+    id: 'guts',
+    name: 'GUTS',
+    series: 'Berserk',
+    emoji: '🗡️',
+    tag: 'BLACK SWORDSMAN',
+    physique: 'Raw Power',
+    goal: 'Brutal strength and mass — shoulders, back, arms built to carry weight',
+    priority: ['Raw Strength', 'Back Mass', 'Grip Strength'],
+    trainingStyle: 'Heavy Carries + Powerlifting',
+    colors: { primary: '#78716c', secondary: '#a8a29e', accent: '#0a0807', glow: '#78716c60' }
+  },
+  {
+    id: 'maki',
+    name: 'MAKI ZENIN',
+    series: 'Jujutsu Kaisen',
+    emoji: '🏹',
+    tag: 'HEAVENLY RESTRICTION',
+    physique: 'Lean & Toned',
+    goal: 'Lean muscle, defined arms and shoulders, tight core, athletic legs',
+    priority: ['Lean Muscle', 'Core Definition', 'Agility'],
+    trainingStyle: 'HIIT Calisthenics + MMA',
+    colors: { primary: '#10b981', secondary: '#34d399', accent: '#001a0f', glow: '#10b98160' }
+  },
+  {
+    id: 'yoruichi',
+    name: 'YORUICHI',
+    series: 'Bleach',
+    emoji: '⚡',
+    tag: 'GODDESS OF FLASH',
+    physique: 'Speed-Lean',
+    goal: 'Explosive legs, defined core, low body fat, maximum agility',
+    priority: ['Speed', 'Agility', 'Low Body Fat'],
+    trainingStyle: 'Sprinting + Parkour + MMA',
+    colors: { primary: '#a855f7', secondary: '#c084fc', accent: '#0f0020', glow: '#a855f760' }
+  },
+  {
+    id: 'kale',
+    name: 'KALE',
+    series: 'Dragon Ball Super',
+    emoji: '💚',
+    tag: 'LEGENDARY SAIYAN',
+    physique: 'Powerful & Strong',
+    goal: 'Build maximum strength and muscle mass — thick legs, wide back, strong shoulders',
+    priority: ['Leg Mass', 'Back Width', 'Overall Strength'],
+    trainingStyle: 'Heavy Compound Lifts + Bulk',
+    colors: { primary: '#16a34a', secondary: '#22c55e', accent: '#001a08', glow: '#16a34a60' }
+  }
+];
+
 // ===========================
 // DATA CONSTANTS
 // ===========================
@@ -188,16 +347,13 @@ window.addEventListener('load', () => {
 });
 
 document.getElementById('begin-btn').addEventListener('click', () => {
-  const nameInput = document.getElementById('hunter-name-input').value.trim().toUpperCase();
-  if (!nameInput) return;
-  state.hunterName = nameInput;
+  const name = document.getElementById('hunter-name-input').value.trim();
+  if (!name) return;
+  state.hunterName = name;
   saveState();
   document.getElementById('onboarding').classList.add('hidden');
-  launchApp();
-});
-
-document.getElementById('hunter-name-input').addEventListener('keydown', e => {
-  if (e.key === 'Enter') document.getElementById('begin-btn').click();
+  document.getElementById('character-select').classList.remove('hidden');
+  renderCharacterSelect();
 });
 
 // ===========================
@@ -207,6 +363,7 @@ document.getElementById('hunter-name-input').addEventListener('keydown', e => {
 function launchApp() {
   checkDayRollover();
   document.getElementById('app').classList.remove('hidden');
+  loadCharacterTheme();
   renderAll();
   initTabs();
 }
@@ -425,6 +582,50 @@ function renderLog() {
       <div class="log-item-date">${entry.date}</div>
     </div>
   `).join('');
+}
+
+  // ===========================
+// CHARACTER SELECT
+// ===========================
+
+function renderCharacterSelect() {
+  const grid = document.getElementById('cs-grid');
+  grid.innerHTML = CHARACTERS.map(c => `
+    <div class="cs-card" data-id="${c.id}" onclick="selectCharacter('${c.id}')">
+      <div class="cs-emoji">${c.emoji}</div>
+      <div class="cs-name">${c.name}</div>
+      <div class="cs-series">${c.series}</div>
+      <div class="cs-tag">${c.tag}</div>
+      <div class="cs-physique">${c.physique}</div>
+    </div>
+  `).join('');
+}
+
+function selectCharacter(id) {
+  const char = CHARACTERS.find(c => c.id === id);
+  if (!char) return;
+  state.characterId = id;
+  applyCharacterTheme(char);
+  saveState();
+  document.getElementById('character-select').classList.add('hidden');
+  document.getElementById('app').classList.remove('hidden');
+  renderAll();
+}
+
+function applyCharacterTheme(char) {
+  const root = document.documentElement;
+  root.style.setProperty('--blue', char.colors.primary);
+  root.style.setProperty('--cyan', char.colors.secondary);
+  root.style.setProperty('--blue-glow', char.colors.glow);
+  root.style.setProperty('--purple', char.colors.accent);
+  root.style.setProperty('--purple-l', char.colors.primary);
+}
+
+function loadCharacterTheme() {
+  if (state.characterId) {
+    const char = CHARACTERS.find(c => c.id === state.characterId);
+    if (char) applyCharacterTheme(char);
+  }
 }
 
 // ===========================
