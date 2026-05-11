@@ -2229,10 +2229,20 @@ function getDungeonGates() {
 }
 
 function renderDungeons() {
+  function renderDungeons() {
   const list = document.getElementById('dungeon-gate-list');
   if (!list) return;
 
+  if (!state.characterId) {
+    list.innerHTML = '<div class="no-activity">Select a character to access dungeon gates.</div>';
+    return;
+  }
+
   const gates = getDungeonGates();
+  if (!gates || gates.length === 0) {
+    list.innerHTML = '<div class="no-activity">No gates found for this character.</div>';
+    return;
+  }
   const playerRankIndex = state.rankIndex;
 
   list.innerHTML = gates.map(gate => {
