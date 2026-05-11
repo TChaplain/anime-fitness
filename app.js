@@ -617,7 +617,9 @@ function renderQuestTab() {
             ${done
               ? `<span class="quest-card-done-tag">✓ DONE</span>`
               : `${isTimed ? `<button class="qc-btn timer-btn-card" onclick="openTimer('${ex.name}', ${timerSecs})">⏱ TIMER</button>` : ''}
-                 <button class="qc-btn check" onclick="toggleQuestCheck(${i})">✓</button>`
+                <button class="qc-btn" onclick="incrementQuest(${i})">+1</button>
+                <button class="qc-btn" onclick="incrementQuest(${i}, 5)">+5</button>
+                <button class="qc-btn check" onclick="toggleQuestCheck(${i})">✓</button>`
             }
           </div>
         </div>
@@ -694,6 +696,25 @@ function renderProfile() {
       </div>
     `;
   }).join('');
+
+  // Physique Roadmap
+  const roadmapEl = document.getElementById('physique-roadmap');
+  if (roadmapEl && state.physiqueRoadmap) {
+    roadmapEl.innerHTML = state.physiqueRoadmap.map((s, i) => `
+      <div class="phys-step">
+        <div class="phys-phase">${s.phase}</div>
+        <div class="phys-title">${s.title}</div>
+        <div class="phys-desc">${s.desc}</div>
+      </div>
+    `).join('');
+  }
+
+  // Character path tag
+  const pathTag = document.getElementById('profile-char-path');
+  if (pathTag && state.characterId) {
+    const char = CHARACTERS.find(c => c.id === state.characterId);
+    pathTag.textContent = char ? `PATH: ${char.name} — ${char.physique}` : '';
+  }
 }
 
 function renderLog() {
@@ -737,8 +758,7 @@ function selectCharacter(id) {
   applyCharacterTheme(char);
   saveState();
   document.getElementById('character-select').classList.add('hidden');
-  document.getElementById('app').classList.remove('hidden');
-  renderAll();
+  startAssessment();
 }
 
 function applyCharacterTheme(char) {
@@ -755,6 +775,198 @@ function loadCharacterTheme() {
     const char = CHARACTERS.find(c => c.id === state.characterId);
     if (char) applyCharacterTheme(char);
   }
+}
+
+// ===========================
+// ASSESSMENT
+// ===========================
+
+const ASSESS_STEPS = [
+  {
+    id: 'weight',
+    question: 'What is your current body weight?',
+    type: 'weight',
+  },
+  {
+    id: 'bodyfat',
+    question: 'How would you describe your current body?',
+    type: 'options',
+    options: [
+      { label: 'Lean', sub: 'Can see abs or close to it', value: 'lean' },
+      { label: 'Average', sub: 'Some muscle, some fat', value: 'average' },
+      { label: 'Carrying Fat', sub: 'Want to lose noticeable weight', value: 'fat' },
+      { label: 'Significantly Overweight', sub: 'Fat loss is the main priority', value: 'obese' },
+    ]
+  },
+  {
+    id: 'pushups',
+    question: 'How many push-ups can you do in one set right now?',
+    type: 'options',
+    options: [
+      { label: '0 – 5', sub: 'Just starting out', value: 'none' },
+      { label: '6 – 15', sub: 'Getting there', value: 'low' },
+      { label: '16 – 30', sub: 'Solid base', value: 'mid' },
+      { label: '30+', sub: 'Strong foundation', value: 'high' },
+    ]
+  },
+  {
+    id: 'frequency',
+    question: 'How often do you currently train?',
+    type: 'options',
+    options: [
+      { label: 'Never / Just Starting', sub: 'No current routine', value: 'none' },
+      { label: '1 – 2x per week', sub: 'Light activity', value: 'low' },
+      { label: '3 – 4x per week', sub: 'Consistent', value: 'mid' },
+      { label: '5+ per week', sub: 'Highly active', value: 'high' },
+    ]
+  },
+  {
+    id: 'goal',
+    question: 'What is your primary goal right now?',
+    type: 'options',
+    options: [
+      { label: 'Lose Fat First', sub: 'Cut before building', value: 'cut' },
+      { label: 'Build Muscle', sub: 'Size and strength focus', value: 'bulk' },
+      { label: 'Both Equally', sub: 'Recomposition', value: 'recomp' },
+      { label: 'Pure Performance', sub: 'Speed, power, endurance', value: 'athletic' },
+    ]
+  },
+];
+
+let _assessStep = 0;
+let _assessAnswers = {};
+let _weightUnit = 'lbs';
+
+function setWeightUnit(unit) {
+  _weightUnit = unit;
+  document.getElementById('unit-lbs').classList.toggle('active', unit === 'lbs');
+  document.getElementById('unit-kg').classList.toggle('active', unit === 'kg');
+}
+
+function startAssessment() {
+  // Skip assessment if already done
+  if (state.assessmentDone) {
+    document.getElementById('app').classList.remove('hidden');
+    renderAll();
+    return;
+  }
+  _assessStep = 0;
+  _assessAnswers = {};
+  const char = CHARACTERS.find(c => c.id === state.characterId);
+  document.getElementById('assess-char-tag').textContent = `PATH TO ${char ? char.name : 'YOUR GOAL'}`;
+  document.getElementById('assessment').classList.remove('hidden');
+  renderAssessStep();
+}
+
+function renderAssessStep() {
+  const step = ASSESS_STEPS[_assessStep];
+  const total = ASSESS_STEPS.length;
+
+  document.getElementById('assess-step-label').textContent = `STEP ${_assessStep + 1} OF ${total}`;
+  document.getElementById('assess-progress-fill').style.width = `${((_assessStep) / total) * 100}%`;
+  document.getElementById('assess-question').textContent = step.question;
+
+  const optionsEl = document.getElementById('assess-options');
+  const weightWrap = document.getElementById('assess-weight-wrap');
+
+  if (step.type === 'weight') {
+    optionsEl.innerHTML = '';
+    optionsEl.classList.add('hidden');
+    weightWrap.classList.remove('hidden');
+    document.getElementById('assess-weight-val').value = '';
+  } else {
+    weightWrap.classList.add('hidden');
+    optionsEl.classList.remove('hidden');
+    optionsEl.innerHTML = step.options.map((opt, i) => `
+      <div class="assess-option" onclick="selectAssessOption('${opt.value}')">
+        <div class="assess-opt-label">${opt.label}</div>
+        <div class="assess-opt-sub">${opt.sub}</div>
+      </div>
+    `).join('');
+  }
+}
+
+function submitWeightStep() {
+  const val = parseFloat(document.getElementById('assess-weight-val').value);
+  if (!val || val < 50) { showToast('Please enter a valid weight.'); return; }
+  const lbs = _weightUnit === 'kg' ? Math.round(val * 2.205) : val;
+  _assessAnswers['weight'] = lbs;
+  _assessAnswers['weightUnit'] = _weightUnit;
+  advanceAssessment();
+}
+
+function selectAssessOption(value) {
+  const step = ASSESS_STEPS[_assessStep];
+  _assessAnswers[step.id] = value;
+
+  // Flash selected
+  document.querySelectorAll('.assess-option').forEach(el => el.classList.remove('selected'));
+  event.currentTarget.classList.add('selected');
+
+  setTimeout(() => advanceAssessment(), 300);
+}
+
+function advanceAssessment() {
+  _assessStep++;
+  if (_assessStep >= ASSESS_STEPS.length) {
+    finishAssessment();
+  } else {
+    renderAssessStep();
+  }
+}
+
+function finishAssessment() {
+  // Calculate starting tier
+  let score = 0;
+  if (_assessAnswers.pushups === 'mid') score += 1;
+  if (_assessAnswers.pushups === 'high') score += 2;
+  if (_assessAnswers.frequency === 'mid') score += 1;
+  if (_assessAnswers.frequency === 'high') score += 2;
+  if (_assessAnswers.bodyfat === 'lean') score += 1;
+
+  let tier = 'beginner';
+  if (score >= 4) tier = 'advanced';
+  else if (score >= 2) tier = 'intermediate';
+
+  // Save to state
+  state.assessment = _assessAnswers;
+  state.tier = tier;
+  state.assessmentDone = true;
+  saveState();
+
+  // Build physique gap analysis
+  buildPhysiqueRoadmap();
+
+  document.getElementById('assessment').classList.add('hidden');
+  document.getElementById('app').classList.remove('hidden');
+  renderAll();
+  showToast(`Tier set: ${tier.toUpperCase()} — Path calibrated.`);
+}
+
+function buildPhysiqueRoadmap() {
+  const char = CHARACTERS.find(c => c.id === state.characterId);
+  if (!char) return;
+
+  const bf = state.assessment.bodyfat;
+  const goal = state.assessment.goal;
+
+  // Generate personalized focus areas based on character + current body
+  const steps = [];
+
+  // Fat loss priority
+  if (bf === 'fat' || bf === 'obese') {
+    steps.push({ phase: 'PHASE 1', title: 'Cut & Reveal', desc: `Reduce body fat to start revealing the foundation. ${char.name} physique requires visible muscle definition.` });
+  }
+
+  // Character-specific structural goals
+  char.priority.forEach((p, i) => {
+    steps.push({ phase: `PHASE ${steps.length + 1}`, title: p, desc: `Build ${p.toLowerCase()} to match ${char.name}'s physique profile.` });
+  });
+
+  steps.push({ phase: `PHASE ${steps.length + 1}`, title: 'Final Form', desc: `Maintain and refine. You now carry the physique of ${char.name}.` });
+
+  state.physiqueRoadmap = steps;
+  saveState();
 }
 
 // ===========================
@@ -1094,9 +1306,12 @@ function timerCancel() {
   document.getElementById('timer-modal').classList.add('hidden');
 }
 
-function incrementQuest(idx) {
-  // Visual feedback only — full check still requires the ✓ button
-  showToast('+1 rep logged');
+function incrementQuest(idx, amount = 1) {
+  if (state.questCompletedToday) return;
+  if (!state.questProgress) state.questProgress = {};
+  state.questProgress[idx] = (state.questProgress[idx] || 0) + amount;
+  saveState();
+  showToast(`+${amount} reps logged`);
 }
 
 // ===========================

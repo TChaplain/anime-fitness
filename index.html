@@ -40,6 +40,27 @@
     </div>
   </div>
 
+  <!-- PHYSIQUE ASSESSMENT -->
+<div id="assessment" class="hidden">
+  <div class="assess-wrap">
+    <div class="assess-header">
+      <div class="assess-step-label" id="assess-step-label">STEP 1 OF 5</div>
+      <div class="assess-progress-bar"><div class="assess-progress-fill" id="assess-progress-fill"></div></div>
+      <div class="assess-char-tag" id="assess-char-tag">PATH TO JINWOO</div>
+    </div>
+    <div class="assess-question" id="assess-question">What is your current body weight?</div>
+    <div class="assess-options" id="assess-options"></div>
+    <div class="assess-weight-input hidden" id="assess-weight-wrap">
+      <input type="number" id="assess-weight-val" placeholder="Enter weight" min="50" max="500" />
+      <div class="assess-unit-toggle">
+        <button class="unit-btn active" id="unit-lbs" onclick="setWeightUnit('lbs')">LBS</button>
+        <button class="unit-btn" id="unit-kg" onclick="setWeightUnit('kg')">KG</button>
+      </div>
+      <button class="assess-next-btn" onclick="submitWeightStep()">NEXT →</button>
+    </div>
+  </div>
+</div>
+
   <!-- MAIN APP -->
   <div id="app" class="hidden">
 
@@ -290,6 +311,12 @@
       </div>
 
       <!-- Rank Roadmap -->
+       <div class="section-title">YOUR PATH</div>
+      <div class="profile-char-path" id="profile-char-path"></div>
+
+      <div class="section-title">PHYSIQUE ROADMAP</div>
+      <div id="physique-roadmap" class="physique-roadmap"></div>
+      
       <div class="section-title">RANK PROGRESSION</div>
       <div class="rank-road" id="rank-road">
         <!-- filled by JS -->
