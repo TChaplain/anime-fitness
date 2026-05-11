@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&family=Exo+2:wght@300;400;600;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" id="main-css" href="style.css" />
 </head>
 <body>
 
@@ -332,10 +332,7 @@
   <!-- ===================== DUNGEON RAIDS TAB ===================== -->
     <section id="tab-dungeons" class="tab-content hidden">
 
-      <div class="dungeon-header">
-        <div class="dungeon-title">DUNGEON RAIDS</div>
-        <div class="dungeon-sub">Enter gates to earn rewards and level up</div>
-      </div>
+      <div class="dungeon-header" id="dungeon-header"></div>
 
       <div class="dungeon-warning">
         ⚠ Once you enter a dungeon, you cannot leave until all missions are complete
@@ -343,7 +340,19 @@
 
       <div id="dungeon-gate-list"></div>
 
+      <div class="section-title" id="dungeon-history-title" style="display:none">RAID HISTORY</div>
+      <div id="dungeon-history-list"></div>
+
     </section>
+
+    <!-- GATE ENTRY OVERLAY -->
+  <div id="gate-entry-overlay" class="hidden">
+    <div class="gate-entry-content">
+      <div class="gate-entry-rank" id="gate-entry-rank">E-RANK</div>
+      <div class="gate-entry-name" id="gate-entry-name">GATE NAME</div>
+      <div class="gate-entry-sub">ENTERING GATE...</div>
+    </div>
+  </div>
 
   <!-- TIMER MODAL -->
   <div id="timer-modal" class="hidden">
@@ -374,6 +383,13 @@
     </div>
   </div>
 
-  <script src="app.js"></script>
+  <script>
+  const v = Date.now();
+  const css = document.getElementById('main-css');
+  css.href = 'style.css?v=' + v;
+  const s = document.createElement('script');
+  s.src = 'app.js?v=' + v;
+  document.currentScript.parentNode.appendChild(s);
+</script>
 </body>
 </html>

@@ -2071,3 +2071,177 @@ header {
   letter-spacing: 0.12em;
   margin-bottom: 0.5rem;
 }
+
+/* ===========================
+   DUNGEON PORTRAIT HEADER
+=========================== */
+
+.dungeon-portrait-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.1rem;
+  border: 1px solid;
+  border-radius: var(--radius);
+  margin-bottom: 0.75rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.dungeon-portrait-emoji {
+  font-size: 2.5rem;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.dungeon-portrait-info {
+  flex: 1;
+}
+
+.dungeon-portrait-name {
+  font-family: var(--head);
+  font-size: 1rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.2rem;
+}
+
+.dungeon-portrait-tag {
+  font-family: var(--mono);
+  font-size: 0.58rem;
+  color: var(--text3);
+  letter-spacing: 0.15em;
+  margin-bottom: 0.2rem;
+}
+
+.dungeon-portrait-rank {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  color: var(--text2);
+  letter-spacing: 0.1em;
+}
+
+.dungeon-portrait-rank-badge {
+  font-family: var(--head);
+  font-size: 2.5rem;
+  font-weight: 800;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+/* ===========================
+   GATE ENTRY OVERLAY
+=========================== */
+
+#gate-entry-overlay {
+  position: fixed;
+  inset: 0;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9000;
+  flex-direction: column;
+}
+
+#gate-entry-overlay.hidden { display: none; }
+
+#gate-entry-overlay.gate-entering {
+  animation: gateFlash 1.8s ease forwards;
+}
+
+@keyframes gateFlash {
+  0%   { background: #000; opacity: 0; }
+  15%  { background: #000; opacity: 1; }
+  40%  { background: var(--gate-color, #3b82f6); opacity: 1; }
+  70%  { background: var(--gate-color, #3b82f6); opacity: 0.8; }
+  100% { background: #000; opacity: 0; }
+}
+
+.gate-entry-content {
+  text-align: center;
+  animation: gateTextIn 0.4s ease 0.3s both;
+}
+
+@keyframes gateTextIn {
+  from { opacity: 0; transform: scale(0.8); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+.gate-entry-rank {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.25em;
+  color: var(--text3);
+  margin-bottom: 0.5rem;
+}
+
+.gate-entry-name {
+  font-family: var(--head);
+  font-size: 1.6rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  color: var(--text);
+  margin-bottom: 0.5rem;
+}
+
+.gate-entry-sub {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  color: var(--text3);
+  letter-spacing: 0.2em;
+  animation: blink 0.8s infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* ===========================
+   DUNGEON HISTORY LOG
+=========================== */
+
+.history-item {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 0.75rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.history-item-left { flex: 1; }
+
+.history-rank-tag {
+  font-family: var(--mono);
+  font-size: 0.55rem;
+  letter-spacing: 0.15em;
+  margin-bottom: 0.2rem;
+}
+
+.history-gate-name {
+  font-family: var(--head);
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 0.15rem;
+}
+
+.history-date {
+  font-family: var(--mono);
+  font-size: 0.58rem;
+  color: var(--text3);
+  letter-spacing: 0.08em;
+}
+
+.history-item-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.2rem;
+  flex-shrink: 0;
+}

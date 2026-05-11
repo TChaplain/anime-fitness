@@ -1156,7 +1156,9 @@ let state = {
   tier: 'beginner',
   physiqueRoadmap: [],
   questProgress: {},
-  dungeonProgress: {},  // { gateId: { missions: [], completed: false } }
+  dungeonProgress: {},
+  dungeonHistory: [],
+  dungeonLastReset: null,
 };
 
 // ===========================
@@ -1254,15 +1256,25 @@ function launchApp() {
 function checkDayRollover() {
   const today = todayStr();
   if (state.lastQuestDate && state.lastQuestDate !== today) {
-    // New day — reset quest if not completed yesterday = penalize
     if (!state.questCompletedToday) {
       addXP(-50, false);
       addActivity('❌ Missed daily quest — 50 XP penalty');
     }
     state.questCompletedToday = false;
     state.questChecks = [];
+    state.questProgress = {};
   }
   if (!state.lastQuestDate) state.lastQuestDate = today;
+
+  // Daily dungeon reset
+  if (state.dungeonLastReset !== today) {
+    if (state.dungeonProgress) {
+      Object.keys(state.dungeonProgress).forEach(gateId => {
+        state.dungeonProgress[gateId] = { missions: [], completed: false };
+      });
+    }
+    state.dungeonLastReset = today;
+  }
 }
 
 // ===========================
@@ -2237,11 +2249,35 @@ function renderDungeons() {
     return;
   }
 
+  // Character portrait header
+  const header = document.getElementById('dungeon-header');
+  if (header) {
+    const char = CHARACTERS.find(c => c.id === state.characterId);
+    const rank = currentRank();
+    if (char) {
+      header.innerHTML = `
+        <div class="dungeon-portrait-card" style="border-color:${char.colors.primary}40;background:linear-gradient(135deg,${char.colors.accent} 0%,var(--panel) 100%)">
+          <div class="dungeon-portrait-emoji">${char.emoji}</div>
+          <div class="dungeon-portrait-info">
+            <div class="dungeon-portrait-name" style="color:${char.colors.primary}">${char.name}</div>
+            <div class="dungeon-portrait-tag">${char.tag}</div>
+            <div class="dungeon-portrait-rank">RANK ${rank.label} — ${rank.name.toUpperCase()}</div>
+          </div>
+          <div class="dungeon-portrait-rank-badge" style="color:${rank.color};text-shadow:0 0 20px ${rank.color}80">${rank.label}</div>
+        </div>
+        <div class="dungeon-warning">
+          ⚠ Once you enter a dungeon, you cannot leave until all missions are complete
+        </div>
+      `;
+    }
+  }
+
   const gates = getDungeonGates();
   if (!gates || gates.length === 0) {
     list.innerHTML = '<div class="no-activity">No gates found for this character.</div>';
     return;
   }
+
   const playerRankIndex = state.rankIndex;
 
   list.innerHTML = gates.map(gate => {
@@ -2278,7 +2314,7 @@ function renderDungeons() {
           <div class="gate-card-inner">
             <div class="gate-rank-tag" style="color:${rankColor};border-color:${rankColor}30">${gate.rank}-RANK GATE</div>
             <div class="gate-name">${gate.name}</div>
-            <div class="gate-cleared-badge">⚔️ GATE CLEARED</div>
+            <div class="gate-cleared-badge">⚔️ GATE CLEARED — RESETS TOMORROW</div>
             <div class="gate-rewards">
               <span class="gate-xp">+${gate.xpReward} XP</span>
               <span class="gate-gold">+${gate.goldReward}G</span>
@@ -2290,7 +2326,7 @@ function renderDungeons() {
 
     if (inProgress) {
       return `
-        <div class="gate-card active" id="gate-active-${gate.id}">
+        <div class="gate-card active">
           <div class="gate-card-inner">
             <div class="gate-rank-tag" style="color:${rankColor};border-color:${rankColor}30">${gate.rank}-RANK GATE</div>
             <div class="gate-name">${gate.name}</div>
@@ -2324,7 +2360,6 @@ function renderDungeons() {
       `;
     }
 
-    // Default: available, not started
     return `
       <div class="gate-card">
         <div class="gate-card-inner">
@@ -2343,16 +2378,60 @@ function renderDungeons() {
       </div>
     `;
   }).join('');
-}
 
+  // History log
+  const historyTitle = document.getElementById('dungeon-history-title');
+  const historyList = document.getElementById('dungeon-history-list');
+  const history = state.dungeonHistory || [];
+
+  if (historyList) {
+    if (history.length === 0) {
+      historyTitle.style.display = 'none';
+      historyList.innerHTML = '';
+    } else {
+      historyTitle.style.display = 'block';
+      const rankColors = { 'E': '#22c55e', 'D': '#3b82f6', 'B': '#a855f7', 'S': '#ef4444' };
+      historyList.innerHTML = history.slice(0, 20).map(h => `
+        <div class="history-item">
+          <div class="history-item-left">
+            <div class="history-rank-tag" style="color:${rankColors[h.rank] || '#94a3b8'}">${h.rank}-RANK</div>
+            <div class="history-gate-name">${h.gateName}</div>
+            <div class="history-date">${h.date}</div>
+          </div>
+          <div class="history-item-right">
+            <span class="gate-xp">+${h.xpEarned} XP</span>
+            <span class="gate-gold">+${h.goldEarned}G</span>
+          </div>
+        </div>
+      `).join('');
+    }
+  }
+}
 function enterGate(gateId) {
   if (!state.dungeonProgress) state.dungeonProgress = {};
   if (!state.dungeonProgress[gateId]) {
     state.dungeonProgress[gateId] = { missions: [], completed: false };
   }
-  saveState();
-  renderDungeons();
-  showToast('Gate entered — complete all missions to clear it.');
+
+  const gate = getDungeonGates().find(g => g.id === gateId);
+  const rankColors = { 'E': '#22c55e', 'D': '#3b82f6', 'B': '#a855f7', 'S': '#ef4444' };
+  const rankColor = rankColors[gate ? gate.rank : 'E'] || '#3b82f6';
+
+  // Animate
+  const overlay = document.getElementById('gate-entry-overlay');
+  document.getElementById('gate-entry-rank').textContent = gate ? `${gate.rank}-RANK GATE` : 'GATE';
+  document.getElementById('gate-entry-name').textContent = gate ? gate.name : '';
+  overlay.style.setProperty('--gate-color', rankColor);
+  overlay.classList.remove('hidden');
+  overlay.classList.add('gate-entering');
+
+  setTimeout(() => {
+    overlay.classList.remove('gate-entering');
+    overlay.classList.add('hidden');
+    saveState();
+    renderDungeons();
+    showToast('Gate entered — complete all missions to clear it.');
+  }, 1800);
 }
 
 function completeDungeonMission(gateId, missionIndex) {
@@ -2374,6 +2453,18 @@ function completeDungeonMission(gateId, missionIndex) {
     state.gold = (state.gold || 0) + gate.goldReward;
     addXP(gate.xpReward);
     addActivity(`⚔️ Gate Cleared: ${gate.name}`, gate.xpReward);
+
+    // Add to history
+    if (!state.dungeonHistory) state.dungeonHistory = [];
+    state.dungeonHistory.unshift({
+      gateId,
+      gateName: gate.name,
+      rank: gate.rank,
+      date: todayStr(),
+      xpEarned: gate.xpReward,
+      goldEarned: gate.goldReward,
+    });
+
     checkAchievements();
     showToast(`Gate cleared! +${gate.xpReward} XP +${gate.goldReward}G`);
   } else {
