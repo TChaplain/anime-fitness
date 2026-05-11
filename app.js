@@ -716,7 +716,10 @@ function renderProfile() {
 
   // Physique Roadmap
   const roadmapEl = document.getElementById('physique-roadmap');
-  if (roadmapEl && state.physiqueRoadmap && state.physiqueRoadmap.length > 0) {
+  if (roadmapEl && state.assessmentDone && (!state.physiqueRoadmap || state.physiqueRoadmap.length === 0)) {
+  buildPhysiqueRoadmap();
+}
+if (roadmapEl && state.physiqueRoadmap && state.physiqueRoadmap.length > 0) {
     roadmapEl.innerHTML = state.physiqueRoadmap.map((s, i) => `
       <div class="phys-step">
         <div class="phys-phase">${s.phase}</div>
